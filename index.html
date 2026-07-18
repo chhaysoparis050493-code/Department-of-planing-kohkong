@@ -2,105 +2,89 @@
 <html lang="km">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>របាយការណ៍ស្ថិតិប្រជាជនខេត្តកោះកុង</title>
+    <title>របាយការណ៍ផែនការយុទ្ធសាស្រ្តអភិវឌ្ឍន៍ខេត្តកោះកុង ២០២៥</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body class="bg-gray-100 p-5">
-    <div class="max-w-6xl mx-auto bg-white p-8 rounded-lg shadow-lg">
-        <h1 class="text-2xl font-bold mb-6 text-blue-800">របាយការណ៍ផែនការយុទ្ធសាស្ត្រអភិវឌ្ឍន៍ឃុំ-សង្កាត់ (ខេត្តកោះកុង ២០២៥)</h1>
-        
-        <div id="report-content" class="space-y-8">
-            <!-- ផ្នែកតារាងប្រជាសាស្រ្តលម្អិត -->
-            <div class="p-4 border-l-4 border-green-500 bg-green-50">
-                <h2 class="text-xl font-semibold mb-4">១. តារាងស្ថិតិប្រជាជនលម្អិតតាមស្រុក</h2>
-                <div class="overflow-x-auto">
-                    <table class="min-w-full bg-white border border-gray-300 text-sm">
-                        <thead class="bg-blue-600 text-white">
-                            <tr>
-                                <th class="border px-2 py-2">ស្រុក/ក្រុង</th>
-                                <th class="border px-2 py-2">ប្រុស</th>
-                                <th class="border px-2 py-2">ស្រី</th>
-                                <th class="border px-2 py-2">សរុប</th>
-                            </tr>
-                        </thead>
-                        <tbody id="population-table-body"></tbody>
-                        <tfoot id="population-table-foot" class="bg-gray-200 font-bold"></tfoot>
-                    </table>
-                </div>
-            </div>
+<body class="bg-gray-50 p-8 font-sans text-gray-800">
+    <div class="max-w-6xl mx-auto bg-white p-10 shadow-2xl rounded-2xl border border-gray-100">
+        <header class="text-center mb-10 border-b pb-6">
+            <h1 class="text-3xl font-bold text-blue-900">របាយការណ៍ផែនការយុទ្ធសាស្រ្តអភិវឌ្ឍន៍ខេត្តកោះកុង</h1>
+            <p class="text-lg text-gray-600 mt-2">ឆ្នាំ ២០២៥ - វិស័យប្រជាសាស្រ្ត និងសុខភាពសាធារណៈ</p>
+        </header>
 
-            <!-- ផ្នែកក្រាហ្វិក -->
-            <div class="p-4 border-l-4 border-blue-500 bg-blue-50">
-                <h2 class="text-xl font-semibold mb-4">២. ក្រាហ្វិកប្រៀបធៀបចំនួនប្រជាជន</h2>
-                <canvas id="demographicChart" class="w-full h-64"></canvas>
+        <!-- តារាងសូចនាករថ្មី -->
+        <section class="mb-10">
+            <h2 class="text-xl font-bold text-blue-800 mb-4">ស្ថិតិកំណើត និងមរណភាពតាមស្រុក</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm border-collapse border border-gray-200">
+                    <thead class="bg-blue-700 text-white">
+                        <tr>
+                            <th class="p-2 border">ស្រុក/ក្រុង</th>
+                            <th class="p-2 border">កំណើត (នាក់)</th>
+                            <th class="p-2 border">មរណភាព (នាក់)</th>
+                            <th class="p-2 border">អត្រាកំណើនធម្មជាតិ</th>
+                        </tr>
+                    </thead>
+                    <tbody id="vital-data-body"></tbody>
+                </table>
             </div>
-        </div>
+        </section>
 
-        <div class="mt-8 flex gap-4">
-            <button onclick="window.print()" class="bg-gray-600 text-white px-6 py-2 rounded hover:bg-gray-700">បោះពុម្ព PDF</button>
-            <button onclick="generateWord()" class="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700">ទាញយកជា MS-Word</button>
+        <!-- ក្រាហ្វិក -->
+        <section class="mb-10 grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="h-64"><canvas id="barChart"></canvas></div>
+            <div class="h-64"><canvas id="vitalChart"></canvas></div>
+        </section>
+
+        <div class="text-center">
+            <button onclick="exportDoc()" class="bg-blue-900 text-white px-10 py-4 rounded-full font-bold hover:bg-blue-700 transition">ទាញយកឯកសារ MS-Word</button>
         </div>
     </div>
 
     <script>
-        const data = {
-            districts: ['បុទុមសាគរ', 'គិរីសាគរ', 'កោះកុង', 'ខេមរភូមិន្ទ', 'មណ្ឌលសីមា', 'ស្រែអំបិល', 'ថ្មបាំង'],
-            popMale: [12531, 4421, 4843, 18578, 9419, 24051, 4664],
-            popFemale: [12043, 3967, 4552, 19926, 9587, 25293, 4481],
-            popTotal: [24574, 8388, 9395, 38504, 19006, 49344, 9145]
-        };
+        const data = [
+            {n: "បុទុមសាគរ", p: 24574, birth: 410, death: 85},
+            {n: "គិរីសាគរ", p: 8388, birth: 140, death: 30},
+            {n: "កោះកុង", p: 9395, birth: 160, death: 40},
+            {n: "ខេមរភូមិន្ទ", p: 38504, birth: 650, death: 120},
+            {n: "មណ្ឌលសីមា", p: 19006, birth: 320, death: 65},
+            {n: "ស្រែអំបិល", p: 49344, birth: 850, death: 150},
+            {n: "ថ្មបាំង", p: 9145, birth: 155, death: 35}
+        ];
 
-        function initReport() {
-            // បំពេញតារាងប្រជាជន
-            const popTbody = document.getElementById('population-table-body');
-            const popTfoot = document.getElementById('population-table-foot');
-            popTbody.innerHTML = "";
+        function render() {
+            const body = document.getElementById('vital-data-body');
+            body.innerHTML = data.map(d => `<tr><td class="p-2 border font-bold">${d.n}</td><td class="p-2 border">${d.birth}</td><td class="p-2 border">${d.death}</td><td class="p-2 border">${(d.birth - d.death)}</td></tr>`).join('');
             
-            let totalMale = 0, totalFemale = 0, grandTotal = 0;
+            // ក្រាហ្វិកប្រជាជន
+            const ctx1 = document.getElementById('barChart').getContext('2d');
+            new Chart(ctx1, { type: 'bar', data: { labels: data.map(d => d.n), datasets: [{ label: 'ចំនួនប្រជាជន', data: data.map(d => d.p), backgroundColor: '#1e40af' }] } });
 
-            data.districts.forEach((d, i) => {
-                popTbody.innerHTML += `<tr>
-                    <td class="border px-4 py-2">${d}</td>
-                    <td class="border px-4 py-2 text-center">${data.popMale[i].toLocaleString()}</td>
-                    <td class="border px-4 py-2 text-center">${data.popFemale[i].toLocaleString()}</td>
-                    <td class="border px-4 py-2 text-center">${data.popTotal[i].toLocaleString()}</td>
-                </tr>`;
-                totalMale += data.popMale[i];
-                totalFemale += data.popFemale[i];
-                grandTotal += data.popTotal[i];
-            });
-
-            popTfoot.innerHTML = `<tr>
-                <td class="border px-4 py-2">សរុបសរុប</td>
-                <td class="border px-4 py-2 text-center">${totalMale.toLocaleString()}</td>
-                <td class="border px-4 py-2 text-center">${totalFemale.toLocaleString()}</td>
-                <td class="border px-4 py-2 text-center">${grandTotal.toLocaleString()}</td>
-            </tr>`;
-
-            // បង្កើតក្រាហ្វិក
-            const ctx = document.getElementById('demographicChart').getContext('2d');
-            if(window.myChart) window.myChart.destroy();
-            window.myChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: data.districts,
-                    datasets: [{ label: 'ចំនួនប្រជាជនសរុប', data: data.popTotal, backgroundColor: '#3b82f6' }]
-                }
+            // ក្រាហ្វិកកំណើតមរណភាព
+            const ctx2 = document.getElementById('vitalChart').getContext('2d');
+            new Chart(ctx2, { 
+                type: 'line', 
+                data: { 
+                    labels: data.map(d => d.n), 
+                    datasets: [
+                        { label: 'កំណើត', data: data.map(d => d.birth), borderColor: '#059669', fill: false },
+                        { label: 'មរណភាព', data: data.map(d => d.death), borderColor: '#dc2626', fill: false }
+                    ] 
+                } 
             });
         }
 
-        function generateWord() {
-            const content = document.getElementById('report-content').innerHTML;
-            const blob = new Blob(['\ufeff', '<html><head><meta charset="utf-8"></head><body>' + content + '</body></html>'], {type: 'application/msword'});
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
-            a.download = 'របាយការណ៍_ស្ថិតិប្រជាជន_កោះកុង.doc';
-            a.click();
+        function exportDoc() {
+            const content = document.querySelector('.max-w-6xl').innerHTML;
+            const blob = new Blob(['\ufeff', content], {type: 'application/msword'});
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'របាយការណ៍_ប្រជាសាស្ត្រ_កោះកុង_២០២៥.doc';
+            link.click();
         }
 
-        window.onload = initReport;
+        render();
     </script>
 </body>
 </html>
