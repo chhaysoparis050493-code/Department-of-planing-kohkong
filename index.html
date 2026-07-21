@@ -3,656 +3,498 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ផែនការយុទ្ធសាស្រ្តអភិវឌ្ឍន៍ឃុំ-សង្កាត់ ខេត្តកោះកុង (២០២៦-២០៣០)</title>
+    <title>សៀវភៅរបាយការណ៍ផែនការយុទ្ធសាស្ត្រអភិវឌ្ឍន៍ឃុំ-សង្កាត់ ខេត្តកោះកុង (២០២៥-២០៣០)</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Chart.js for data visualization -->
+    <!-- Chart.js CDN for Data Analysis Visualization -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Font Awesome for icons -->
+    <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Font: Khmer Font Family -->
-    <link href="https://fonts.googleapis.com/css2?family=Preahvihear&family=Kantumruy+Pro:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Google Fonts for Khmer Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Bayon&family=Kantumruy+Pro:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Kantumruy Pro', 'Preahvihear', sans-serif;
+            font-family: 'Kantumruy Pro', sans-serif;
             background-color: #f8fafc;
             color: #1e293b;
         }
         h1, h2, h3, h4, .khmer-title {
-            font-family: 'Preahvihear', 'Kantumruy Pro', sans-serif;
+            font-family: 'Kantumruy Pro', sans-serif;
         }
         @media print {
-            .no-print { display: none !important; }
-            body { background-color: #ffffff; }
-            .print-shadow { box-shadow: none !important; border: 1px solid #cbd5e1; }
+            .no-print {
+                display: none !important;
+            }
+            body {
+                background: white;
+            }
+            .page-break {
+                page-break-before: always;
+            }
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between selection:bg-emerald-500 selection:text-white">
+<body class="bg-slate-50 min-h-screen flex flex-col">
 
-    <header class="bg-slate-900 text-white sticky top-0 z-50 shadow-md no-print">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <div class="flex items-center space-x-3 rtl:space-x-reverse">
-                <div class="bg-emerald-600 p-2.5 rounded-xl text-white shadow-lg">
-                    <i class="fa-solid fa-landmark text-xl"></i>
+    <header class="bg-emerald-900 text-white shadow-md sticky top-0 z-50 no-print">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="bg-emerald-800 p-2.5 rounded-xl border border-emerald-700 shadow-inner">
+                    <i class="fa-solid fa-landmark text-amber-400 text-xl"></i>
                 </div>
                 <div>
-                    <h1 class="text-lg font-bold tracking-wide">រដ្ឋបាលខេត្តកោះកុង</h1>
-                    <p class="text-xs text-emerald-400 font-medium">ផែនការយុទ្ធសាស្រ្តអភិវឌ្ឍន៍ឃុំ-សង្កាត់ ២០២៦-២០៣០</p>
+                    <h1 class="text-base md:text-lg font-bold text-amber-300">រដ្ឋបាលខេត្តកោះកុង</h1>
+                    <p class="text-xs text-emerald-200">សៀវភៅផែនការយុទ្ធសាស្ត្រអភិវឌ្ឍន៍ឃុំ-សង្កាត់</p>
                 </div>
             </div>
-            <div class="flex items-center space-x-3 rtl:space-x-reverse">
-                <button onclick="window.print()" class="hidden sm:inline-flex items-center px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm font-medium rounded-lg transition border border-slate-700 shadow-sm">
-                    <i class="fa-solid fa-print mr-2"></i> បោះពុម្ព
+            <div class="flex items-center space-x-3">
+                <button onclick="window.print()" class="bg-emerald-800 hover:bg-emerald-700 px-3.5 py-2 rounded-xl text-sm font-medium transition flex items-center space-x-2 border border-emerald-600 shadow-sm">
+                    <i class="fa-solid fa-print"></i>
+                    <span class="hidden sm:inline">បោះពុម្ព</span>
                 </button>
-                <button onclick="exportToWord()" class="inline-flex items-center px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-semibold rounded-xl shadow-lg transition transform hover:-translate-y-0.5">
-                    <i class="fa-solid fa-file-word mr-2 text-lg"></i> ទាញយកជា File MS Word
+                <button onclick="exportToWord()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 px-4 py-2 rounded-xl text-sm font-bold shadow-md transition flex items-center space-x-2">
+                    <i class="fa-solid fa-file-word text-base"></i>
+                    <span>ទាញយក MS-Word</span>
                 </button>
             </div>
         </div>
     </header>
 
-    <main class="flex-grow max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
-        
-        <!-- Report Paper Sheet -->
-        <div id="reportContent" class="bg-white rounded-2xl shadow-xl border border-slate-200 p-8 sm:p-14 print-shadow transition-all duration-300">
-            
-            <!-- Document Cover Header -->
-            <div class="text-center border-b-2 border-slate-100 pb-10 mb-10">
-                <div class="inline-block bg-emerald-50 text-emerald-700 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider mb-4 border border-emerald-200">
-                    ព្រះរាជាណាចក្រកម្ពុជា ជាតិ សាសនា ព្រះមហាក្សត្រ
-                </div>
-                <h1 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-2 mb-4 leading-tight">
-                    របាយការណ៍ផែនការយុទ្ធសាស្រ្តអភិវឌ្ឍន៍ឃុំ-សង្កាត់
-                </h1>
-                <h2 class="text-xl sm:text-2xl font-bold text-emerald-700 mb-6">
-                    ខេត្តកោះកុង (ឆ្នាំ ២០២៦ - ២០៣០)
-                </h2>
-                <p class="text-slate-600 text-sm max-w-2xl mx-auto leading-relaxed">
-                    ឯកសារយុទ្ធសាស្រ្តផ្លូវការស្តីពីការវិភាគទិន្នន័យប្រជាសាស្ត្រ សេដ្ឋកិច្ច ភូមិសាស្ត្រ ការអប់រំ ការងារ និងទិសដៅអភិវឌ្ឍន៍មូលដ្ឋានតាមបណ្តាស្រុក/ក្រុង ក្នុងខេត្តកោះកុង (ផ្អែកលើទិន្នន័យ MS Excel និងផ្ទៀងផ្ទាត់ផ្លូវការ)។
-                </p>
-                <div class="mt-6 flex justify-center items-center space-x-6 text-xs text-slate-500 font-medium">
-                    <span><i class="fa-regular fa-calendar-days mr-1 text-emerald-600"></i> កាលបរិច្ឆេទចេញផ្សាយ៖ មីនា ២០២៦</span>
-                    <span><i class="fa-solid fa-location-dot mr-1 text-emerald-600"></i> ខេត្តកោះកុង, កម្ពុជា</span>
-                </div>
+    <section class="bg-gradient-to-br from-emerald-950 via-emerald-900 to-slate-900 text-white py-20 px-4 text-center relative overflow-hidden shadow-2xl">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#34d399_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <div class="max-w-4xl mx-auto relative z-10">
+            <span class="bg-amber-400 text-slate-950 text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-widest mb-4 inline-block shadow">ព្រះរាជាណាចក្រកម្ពុជា ជាតិ សាសនា ព្រះមហាក្សត្រ</span>
+            <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight mt-3 mb-4 text-white leading-tight">
+                សៀវភៅរបាយការណ៍ផែនការយុទ្ធសាស្ត្រអភិវឌ្ឍន៍ឃុំ-សង្កាត់
+            </h1>
+            <h2 class="text-xl md:text-2xl font-semibold text-amber-300 mb-6">
+                ខេត្តកោះកុង (ឆ្នាំ២០២៥ - ២០៣០)
+            </h2>
+            <p class="text-slate-300 max-w-2xl mx-auto text-sm md:text-base leading-relaxed mb-8">
+                ឯកសារវិភាគទិន្នន័យស្ថិតិប្រជាសាស្ត្រ (គ្រួសារសរុប ៣៦,៨៣៩ និងប្រជាជនសរុប ១៥៨,៣៥៦នាក់ ក្នុងនោះស្រី ៧៩,៨៤៩នាក់) សេដ្ឋកិច្ច ការអប់រំ សុខាភិបាល ការងារ និងការអភិវឌ្ឍមូលដ្ឋានតាមបណ្តាស្រុក-ក្រុង ក្នុងខេត្តកោះកុង ប្រកបដោយភាពស៊ីជម្រៅ ស្របតាមគោលនយោបាយជាតិ។
+            </p>
+            <div class="flex flex-wrap justify-center gap-3">
+                <a href="#introduction" class="bg-emerald-700 hover:bg-emerald-600 text-white px-6 py-3 rounded-xl text-sm font-semibold transition shadow-lg border border-emerald-500">
+                    <i class="fa-solid fa-book-open mr-2"></i> ចាប់ផ្តើមអានសេចក្តីផ្តើម
+                </a>
+                <a href="#demographic" class="bg-white/10 hover:bg-white/20 text-white border border-white/30 px-6 py-3 rounded-xl text-sm font-semibold transition backdrop-blur-sm">
+                    <i class="fa-solid fa-chart-column mr-2"></i> ពិនិត្យតារាង និងទិន្នន័យវិភាគ
+                </a>
             </div>
+        </div>
+    </section>
 
-            <section class="mb-12 bg-slate-50 p-6 rounded-2xl border border-slate-200">
-                <h3 class="text-lg font-bold text-slate-900 mb-4 flex items-center">
-                    <i class="fa-solid fa-list mr-2 text-emerald-600"></i> មាតិកាឯកសាររបាយការណ៍
+    <main class="flex-grow max-w-7xl mx-auto px-4 py-10 w-full grid grid-cols-1 lg:grid-cols-4 gap-8" id="report-content">
+        
+        <!-- Sidebar Table of Contents (Desktop) -->
+        <aside class="hidden lg:block lg:col-span-1 no-print">
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 sticky top-24">
+                <h3 class="font-bold text-slate-800 text-base mb-4 pb-2 border-b border-slate-100 flex items-center">
+                    <i class="fa-solid fa-list-ul text-emerald-700 mr-2"></i> មាតិកាសៀវភៅ
                 </h3>
-                <ul class="space-y-2 text-sm text-slate-700">
-                    <li class="flex justify-between border-b border-slate-200 pb-2">
-                        <span>១. សេចក្តីផ្តើម និងស្ថានភាពសេដ្ឋកិច្ច ភូមិសាស្ត្រខេត្តកោះកុង</span>
-                        <span class="font-semibold text-emerald-700">ទំព័រ ០១</span>
-                    </li>
-                    <li class="flex justify-between border-b border-slate-200 pb-2">
-                        <span>២. ការវិភាគទិន្នន័យប្រជាសាស្ត្រ និងតារាងចំនួនប្រជាជនសរុបតាមស្រុក</span>
-                        <span class="font-semibold text-emerald-700">ទំព័រ ០៣</span>
-                    </li>
-                    <li class="flex justify-between border-b border-slate-200 pb-2">
-                        <span>៣. រចនាសម្ព័ន្ធអាយុ ស្ថិតិកំណើត និងមរណភាពសរុបតាមស្រុក</span>
-                        <span class="font-semibold text-emerald-700">ទំព័រ ០៦</span>
-                    </li>
-                    <li class="flex justify-between border-b border-slate-200 pb-2">
-                        <span>៤. ស្ថិតិការអប់រំ (អ្នកចូលរៀន និងមិនបានចូលរៀន) និងការងារតាមស្រុក</span>
-                        <span class="font-semibold text-emerald-700">ទំព័រ ០៩</span>
-                    </li>
-                    <li class="flex justify-between border-b border-slate-200 pb-2">
-                        <span>៥. ស្ថិតិអ្នកចំណាកស្រុក (ក្នុង និងក្រៅប្រទេស) តាមស្រុក</span>
-                        <span class="font-semibold text-emerald-700">ទំព័រ ១២</span>
-                    </li>
-                    <li class="flex justify-between border-b border-slate-200 pb-2">
-                        <span>៦. ការវិភាគពលកម្មតាមវិស័យចំបង (កសិកម្ម ឧស្សាហកម្ម សេវាកម្ម ទេសចរណ៍)</span>
-                        <span class="font-semibold text-emerald-700">ទំព័រ ១៥</span>
-                    </li>
-                    <li class="flex justify-between">
-                        <span>៧. សេចក្តីសន្និដ្ឋាន និងផែនការសកម្មភាពយុទ្ធសាស្រ្តអភិវឌ្ឍន៍</span>
-                        <span class="font-semibold text-emerald-700">ទំព័រ ១៨</span>
-                    </li>
-                </ul>
-            </section>
+                <nav class="space-y-2 text-sm">
+                    <a href="#introduction" class="block text-slate-600 hover:text-emerald-700 hover:bg-emerald-50 p-2.5 rounded-xl transition font-medium">១. សេចក្តីផ្តើម និងភូមិសាស្ត្រ</a>
+                    <a href="#demographic" class="block text-slate-600 hover:text-emerald-700 hover:bg-emerald-50 p-2.5 rounded-xl transition font-medium">២. ស្ថិតិប្រជាសាស្ត្រ និងក្រុមអាយុ</a>
+                    <a href="#employment" class="block text-slate-600 hover:text-emerald-700 hover:bg-emerald-50 p-2.5 rounded-xl transition font-medium">៣. ការងារ និងរចនាសម្ព័ន្ធសេដ្ឋកិច្ច</a>
+                    <a href="#vital-stats" class="block text-slate-600 hover:text-emerald-700 hover:bg-emerald-50 p-2.5 rounded-xl transition font-medium">៤. ស្ថិតិកំណើត មរណភាព និងអប់រំ</a>
+                    <a href="#migration" class="block text-slate-600 hover:text-emerald-700 hover:bg-emerald-50 p-2.5 rounded-xl transition font-medium">៥. ចំណាកស្រុក និងមតិយោបល់</a>
+                    <a href="#conclusion" class="block text-slate-600 hover:text-emerald-700 hover:bg-emerald-50 p-2.5 rounded-xl transition font-medium">៦. សេចក្តីសន្និដ្ឋាន និងអនុសាសន៍</a>
+                </nav>
+            </div>
+        </aside>
 
-            <section class="mb-12">
-                <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
-                    <span class="flex items-center justify-center w-9 h-9 rounded-lg bg-emerald-600 text-white font-bold text-base shadow">១</span>
-                    <h3 class="text-xl sm:text-2xl font-bold text-slate-900">សេចក្តីផ្តើម និងស្ថានភាពសេដ្ឋកិច្ច ភូមិសាស្ត្រខេត្តកោះកុង</h3>
+        <!-- Document Body Content -->
+        <div class="lg:col-span-3 space-y-12">
+
+            <!-- SECTION 1: Introduction and Geography -->
+            <section id="introduction" class="bg-white rounded-3xl shadow-sm border border-slate-200 p-6 md:p-10 space-y-6">
+                <div class="border-b border-slate-100 pb-4">
+                    <span class="text-xs font-bold text-emerald-700 uppercase tracking-widest bg-emerald-50 px-3.5 py-1.5 rounded-full border border-emerald-200">ជំពូកទី ១</span>
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mt-3">សេចក្តីផ្តើម និងស្ថានភាពសេដ្ឋកិច្ច-ភូមិសាស្ត្រក្នុងខេត្តកោះកុង</h2>
                 </div>
-                
-                <div class="space-y-4 text-slate-700 leading-relaxed text-justify text-base">
+
+                <div class="prose max-w-none text-slate-700 space-y-5 leading-relaxed">
                     <p>
-                        ខេត្តកោះកុង ស្ថិតនៅប៉ែកនិរតីនៃព្រះរាជាណាចក្រកម្ពុជា មានផ្ទៃដីសរុប ១០,០៤៥.៥៨ គីឡូម៉ែត្រការ៉េ ដោយចែកចេញជា ក្រុងចំនួន ១ (ក្រុងខេមរភូមិន្ទ) និងស្រុកចំនួន ៦ ព្រមទាំងមាន ២៩ ឃុំ-សង្កាត់ និង ១១៩ ភូមិ។ ខេត្តនេះមានព្រំប្រទល់ខាងកើតជាប់ខេត្តព្រះសីហនុ និងខេត្តកំពង់ស្ពឺ ខាងលិចនិងខាងត្បូងជាប់ឈូងសមុទ្រ និងប្រទេសថៃ និងខាងជើងជាប់ខេត្តពោធិ៍សាត់។
+                        ខេត្តកោះកុង គឺជាខេត្តប៉ូលសេដ្ឋកិច្ចដ៏មានសក្តានុពលខ្ពស់មួយស្ថិតនៅភាគនិរតីនៃព្រះរាជាណាចក្រកម្ពុជា ដែលមានព្រំប្រទល់ជាប់នឹងខេត្តពោធិ៍សាត់ ខេត្តកំពង់ស្ពឺ ខេត្តព្រះសីហនុ និងមានព្រំប្រទល់ប្រវែងវែងអន្លាយជាប់នឹងប្រទេសថៃ ព្រមទាំងមានឆ្នេរសមុទ្រដ៏ស្រស់ស្អាតអមដោយព្រៃកោងកាងធម្មជាតិដ៏ក្រាស់។ ផែនការយុទ្ធសាស្ត្រអភិវឌ្ឍន៍ឃុំ-សង្កាត់ ក្នុងខេត្តកោះកុង ត្រូវបានរៀបចំឡើងក្នុងគោលដៅតម្រង់ទិសការអភិវឌ្ឍមូលដ្ឋាន ការកាត់បន្ថយភាពក្រីក្រ និងការលើកកម្ពស់ជីវភាពរស់នៅរបស់ប្រជាពលរដ្ឋសរុបចំនួន <strong>៣៦,៨៣៩ គ្រួសារ</strong> ស្មើនឹង <strong>១៥៨,៣៥៦ នាក់</strong> (ក្នុងនោះស្ត្រីសរុប <strong>៧៩,៨៤៩ នាក់</strong>) តាមរយៈការប្រើប្រាស់ធនធានក្នុងស្រុកប្រកបដោយចីរភាព។
                     </p>
+                    <div class="my-6 grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                        <img src="https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=800&q=80" alt="ខេត្តកោះកុង ធម្មជាតិ និងការអភិវឌ្ឍន៍" class="rounded-2xl shadow-md object-cover w-full h-64 border border-slate-200" onerror="this.src='https://placehold.co/800x400/047857/ffffff?text=Koh+Kong+Province'">
+                        <div class="bg-emerald-50/70 p-6 rounded-2xl border border-emerald-100 space-y-3">
+                            <h4 class="font-bold text-emerald-900 text-base"><i class="fa-solid fa-compass text-amber-500 mr-2"></i> សក្តានុពលភូមិសាស្ត្រចម្បង៖</h4>
+                            <ul class="list-disc list-inside space-y-2 text-sm text-emerald-950">
+                                <li>មានច្រកព្រំដែនអន្តរជាតិ (ចាំយាម) អំណោយផលដល់ពាណិជ្ជកម្មទ្វេភាគី។</li>
+                                <li>តំបន់អេកូទេសចរណ៍ព្រៃព្រឹក្សា ទឹកធ្លាក់ និងកោះតូចធំ។</li>
+                                <li>សក្តានុពលផ្នែកវារីវប្បកម្ម ការនេសាទសមុទ្រ និងកសិ-ឧស្សាហកម្ម (ដូងប្រេង កៅស៊ូ)។</li>
+                            </ul>
+                        </div>
+                    </div>
                     <p>
-                        សេដ្ឋកិច្ចមូលដ្ឋានរបស់ខេត្តកោះកុងពឹងផ្អែកយ៉ាងសំខាន់លើវិស័យកសិកម្ម-កសិឧស្សាហកម្ម វិស័យនេសាទនិងវារីវប្បកម្ម វិស័យឧស្សាហកម្មកែច្នៃ តំបន់សេដ្ឋកិច្ចពិសេស និងវិស័យសេវាកម្ម-ទេសចរណ៍ធម្មជាតិនិងតំបន់ឆ្នេរ។ ផែនការយុទ្ធសាស្រ្តអភិវឌ្ឍន៍ឃុំ-សង្កាត់នេះ ត្រូវបានរៀបចំឡើងដើម្បីឆ្លើយតបចំតម្រូវការជាក់ស្តែង និងកាត់បន្ថយភាពក្រីក្រក្នុងមូលដ្ឋាន។
+                        ស្ថានភាពសេដ្ឋកិច្ចក្នុងខេត្តកោះកុងមានកំណើនជាវិជ្ជមានគួរឱ្យកត់សម្គាល់ គាំទ្រដោយវិស័យទេសចរណ៍ សេវាកម្ម កសិកម្មទំនើប និងគម្រោងវិនិយោគខ្នាតធំ។ ទោះបីជាយ៉ាងណាក៏ដោយ បញ្ហាប្រឈមដូចជាការប្រែប្រួលអាកាសធាតុ ការចំណាកស្រុករបស់កម្លាំងពលកម្មវ័យក្មេង និងគម្លាតអភិវឌ្ឍន៍រវាងទីប្រជុំជននិងជនបទ ទាមទារឱ្យមានការដាក់ចេញនូវយុទ្ធសាស្ត្រអភិវឌ្ឍន៍ឃុំ-សង្កាត់ឱ្យបានជាក់លាក់។
                     </p>
-                </div>
-
-                <div class="mt-8 rounded-2xl overflow-hidden shadow-md border border-slate-200">
-                    <img src="https://placehold.co/1000x450/065f46/ffffff?text=Koh+Kong+Coastal+Geography+and+Development+Overview" alt="Koh Kong Geography" class="w-full h-64 sm:h-80 object-cover hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/1000x450/1e293b/ffffff?text=Image+Unavailable'">
-                    <div class="bg-slate-50 px-4 py-2.5 text-xs text-slate-500 text-center border-t border-slate-200 font-medium">
-                        រូបភាពទី១៖ ទិដ្ឋភាពទូទៅនៃភូមិសាស្ត្រឆ្នេរសមុទ្រ និងតំបន់អភិវឌ្ឍន៍ក្នុងខេត្តកោះកុង (ប្រភព៖ Stock Image)
-                    </div>
-                </div>
-
-                <blockquote class="my-6 p-5 bg-emerald-50 border-s-4 border-emerald-600 rounded-e-xl text-slate-800 italic text-sm sm:text-base">
-                    "ការធានាថាទិន្នន័យប្រជាសាស្ត្រ និងសេដ្ឋកិច្ចមូលដ្ឋានមានភាពត្រឹមត្រូវ គឺជាកន្លងគ្រឹះដ៏រឹងមាំបំផុតសម្រាប់ការរៀបចំផែនការវិនិយោគបីឆ្នាំរំកិលរបស់រដ្ឋបាលឃុំ-សង្កាត់។"
-                    <span class="block mt-2 font-semibold not-italic text-emerald-800 text-xs sm:text-sm">— មន្ត្រីជំនាញផែនការ និងវិនិយោគខេត្តកោះកុង</span>
-                </blockquote>
-            </section>
-
-            <section class="mb-12">
-                <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
-                    <span class="flex items-center justify-center w-9 h-9 rounded-lg bg-emerald-600 text-white font-bold text-base shadow">២</span>
-                    <h3 class="text-xl sm:text-2xl font-bold text-slate-900">ការវិភាគទិន្នន័យប្រជាសាស្ត្រ និងតារាងចំនួនប្រជាជនសរុបតាមស្រុក</h3>
-                </div>
-                
-                <p class="text-slate-700 leading-relaxed text-justify mb-6">
-                    យោងតាមទិន្នន័យស្ថិតិផ្លូវការ និងតារាងទិន្នន័យ MS Excel របស់រដ្ឋបាលខេត្តកោះកុង ខេត្តមានប្រជាពលរដ្ឋសរុបប្រមាណ <strong>១៤៦,០៥២ នាក់</strong> (ស្រី ៧២,៩១៧ នាក់)។ ខាងក្រោមនេះគឺជាតារាងបង្ហាញពីចំនួនប្រជាជនសរុបតាមស្រុក/ក្រុងនីមួយៗ (បានលុបជួរចំនួនឃុំ-សង្កាត់ចេញតាមការស្នើសុំ ដើម្បីភាពងាយស្រួលនិងច្បាស់លាស់ក្នុងការពិនិត្យទិន្នន័យប្រជាសាស្ត្រ)៖
-                </p>
-
-                <!-- Table 1: Population by District -->
-                <div class="overflow-x-auto mb-6 rounded-xl border border-slate-200 shadow-sm">
-                    <table class="min-w-full divide-y divide-slate-200 text-sm">
-                        <thead class="bg-slate-900 text-white font-semibold">
-                            <tr>
-                                <th class="px-4 py-3 text-center">ល.រ</th>
-                                <th class="px-4 py-3 text-right">ស្រុក / ក្រុង</th>
-                                <th class="px-4 py-3 text-right">ប្រជាជនសរុប (នាក់)</th>
-                                <th class="px-4 py-3 text-right">ស្រី (នាក់)</th>
-                                <th class="px-4 py-3 text-right">ភាគរយ (%)</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-slate-100 bg-white text-slate-700">
-                            <tr class="hover:bg-slate-50">
-                                <td class="px-4 py-3 text-center font-medium">១</td>
-                                <td class="px-4 py-3 text-right font-medium text-slate-900">ក្រុងខេមរភូមិន្ទ</td>
-                                <td class="px-4 py-3 text-right font-semibold">៣៦,២៥០</td>
-                                <td class="px-4 py-3 text-right">១៨,៤២០</td>
-                                <td class="px-4 py-3 text-right">២៤.៨%</td>
-                            </tr>
-                            <tr class="hover:bg-slate-50">
-                                <td class="px-4 py-3 text-center font-medium">២</td>
-                                <td class="px-4 py-3 text-right font-medium text-slate-900">ស្រុកបទុមសាគរ</td>
-                                <td class="px-4 py-3 text-right font-semibold">២៣,៤០០</td>
-                                <td class="px-4 py-3 text-right">១១,៦៥០</td>
-                                <td class="px-4 py-3 text-right">១៦.០%</td>
-                            </tr>
-                            <tr class="hover:bg-slate-50">
-                                <td class="px-4 py-3 text-center font-medium">៣</td>
-                                <td class="px-4 py-3 text-right font-medium text-slate-900">ស្រុកគីរីសាគរ</td>
-                                <td class="px-4 py-3 text-right font-semibold">១៥,៨២០</td>
-                                <td class="px-4 py-3 text-right">៧,៧០០</td>
-                                <td class="px-4 py-3 text-right">១០.៨%</td>
-                            </tr>
-                            <tr class="hover:bg-slate-50">
-                                <td class="px-4 py-3 text-center font-medium">៤</td>
-                                <td class="px-4 py-3 text-right font-medium text-slate-900">ស្រុកកោះកុង</td>
-                                <td class="px-4 py-3 text-right font-semibold">១២,៨០០</td>
-                                <td class="px-4 py-3 text-right">៦,៣០០</td>
-                                <td class="px-4 py-3 text-right">៨.៨%</td>
-                            </tr>
-                            <tr class="hover:bg-slate-50">
-                                <td class="px-4 py-3 text-center font-medium">៥</td>
-                                <td class="px-4 py-3 text-right font-medium text-slate-900">ស្រុកមណ្ឌលសីមា</td>
-                                <td class="px-4 py-3 text-right font-semibold">១៦,៤០០</td>
-                                <td class="px-4 py-3 text-right">៨,២០០</td>
-                                <td class="px-4 py-3 text-right">១១.២%</td>
-                            </tr>
-                            <tr class="hover:bg-slate-50">
-                                <td class="px-4 py-3 text-center font-medium">៦</td>
-                                <td class="px-4 py-3 text-right font-medium text-slate-900">ស្រុកស្រែអំបិល</td>
-                                <td class="px-4 py-3 text-right font-semibold">៣១,៥០០</td>
-                                <td class="px-4 py-3 text-right">១៥,៧៤០</td>
-                                <td class="px-4 py-3 text-right">២១.៦%</td>
-                            </tr>
-                            <tr class="hover:bg-slate-50">
-                                <td class="px-4 py-3 text-center font-medium">៧</td>
-                                <td class="px-4 py-3 text-right font-medium text-slate-900">ស្រុកថ្មបាំង</td>
-                                <td class="px-4 py-3 text-right font-semibold">៩,៨៨២</td>
-                                <td class="px-4 py-3 text-right">៤,៩០៧</td>
-                                <td class="px-4 py-3 text-right">៦.៨%</td>
-                            </tr>
-                        </tbody>
-                        <tfoot class="bg-emerald-50 font-bold text-slate-900">
-                            <tr>
-                                <td colspan="2" class="px-4 py-3 text-right">សរុបទូទាំងខេត្ត</td>
-                                <td class="px-4 py-3 text-right text-emerald-700">១៤៦,០៥២ នាក់</td>
-                                <td class="px-4 py-3 text-right text-emerald-700">៧២,៩១៧ នាក់</td>
-                                <td class="px-4 py-3 text-right text-emerald-700">១០០%</td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-
-                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 text-sm text-slate-700 space-y-3 mb-6">
-                    <h4 class="font-bold text-slate-900"><i class="fa-solid fa-chart-pie mr-2 text-emerald-600"></i>ការផ្ទៀងផ្ទាត់ និងវិភាគទិន្នន័យប្រជាជនសរុប៖</h4>
-                    <p>
-                        ការបូកសរុបទិន្នន័យប្រជាជនពីស្រុកទាំង ៧ (៣៦,២៥០ + ២៣,៤០០ + ១៥,៨២០ + ១២,៨០០ + ១៦,៤០០ + ៣១,៥០០ + ៩,៨៨២) ទទួលបានចំនួនសរុប <strong>១៤៦,០៥២ នាក់</strong> យ៉ាងជាក់លាក់។ ក្នុងនោះ ក្រុងខេមរភូមិន្ទ និងស្រុកស្រែអំបិល មានចំនួនប្រជាជនច្រើនជាងគេបំផុត ដោយរួមចំណែកជាង ៤៦% នៃចំនួនប្រជាជនសរុបទូទាំងខេត្ត ស្របតាមទិន្នន័យ MS Excel ផ្លូវការ។
-                    </p>
-                </div>
-
-                <!-- Interactive Chart Container 1 with Clean-up Logic -->
-                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-                    <div class="flex justify-between items-center mb-4">
-                        <h4 class="font-bold text-slate-900 text-sm sm:text-base">ក្រាហ្វិកអន្តរកម្ម៖ ការប្រៀបធៀបចំនួនប្រជាជនសរុបតាមស្រុក/ក្រុង</h4>
-                        <span class="text-xs bg-emerald-100 text-emerald-800 font-semibold px-2.5 py-1 rounded-md">Chart.js Dynamic</span>
-                    </div>
-                    <div class="relative h-72 w-full">
-                        <canvas id="popChart"></canvas>
-                    </div>
                 </div>
             </section>
 
-            <section class="mb-12">
-                <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
-                    <span class="flex items-center justify-center w-9 h-9 rounded-lg bg-emerald-600 text-white font-bold text-base shadow">៣</span>
-                    <h3 class="text-xl sm:text-2xl font-bold text-slate-900">រចនាសម្ព័ន្ធតាមក្រុមអាយុ ស្ថិតិកំណើត និងមរណភាពសរុបតាមស្រុក</h3>
+            <!-- SECTION 2: Demographic Data and Analysis -->
+            <section id="demographic" class="bg-white rounded-3xl shadow-sm border border-slate-200 p-6 md:p-10 space-y-6">
+                <div class="border-b border-slate-100 pb-4">
+                    <span class="text-xs font-bold text-emerald-700 uppercase tracking-widest bg-emerald-50 px-3.5 py-1.5 rounded-full border border-emerald-200">ជំពូកទី ២</span>
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mt-3">ការវិភាគទិន្នន័យប្រជាសាស្ត្រ និងរចនាសម្ព័ន្ធអាយុ</h2>
                 </div>
 
-                <p class="text-slate-700 leading-relaxed text-justify mb-6">
-                    រចនាសម្ព័ន្ធអាយុរបស់ប្រជាពលរដ្ឋបង្ហាញពីសមាមាត្រកម្លាំងពលកម្ម និងបន្ទុកសង្គម ព្រមទាំងស្ថិតិអត្រាកំណើតនិងមរណភាពប្រចាំឆ្នាំតាមតំបន់នីមួយៗក្នុងខេត្តកោះកុង។
-                </p>
+                <div class="prose max-w-none text-slate-700 space-y-5">
+                    <p>
+                        ទិន្នន័យប្រជាសាស្ត្រគឺជាមូលដ្ឋានគ្រឹះក្នុងការរៀបចំផែនការអភិវឌ្ឍន៍ថ្នាក់ឃុំ-សង្កាត់។ យោងតាមទិន្នន័យផ្លូវការបច្ចុប្បន្ន ចំនួនគ្រួសារសរុបទូទាំងខេត្តកោះកុងគឺ <strong>៣៦,៨៣៩ គ្រួសារ</strong> ប្រជាជនសរុបគឺ <strong>១៥៨,៣៥៦ នាក់</strong> និងស្ត្រីសរុបគឺ <strong>៧៩,៨៤៩ នាក់</strong>។ ខាងក្រោមនេះគឺជាតារាងបង្ហាញពីចំនួនគ្រួសារ និងប្រជាជនសរុបតាមស្រុក-ក្រុងទាំង ៧ ក្នុងខេត្តកោះកុង និងរចនាសម្ព័ន្ធតាមក្រុមអាយុ។
+                    </p>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <h4 class="font-bold text-slate-800 text-lg mt-6 mb-3">តារាងទី ១៖ ចំនួនគ្រួសារ និងប្រជាជនសរុបតាមស្រុក-ក្រុង ក្នុងខេត្តកោះកុង</h4>
+                    <div class="overflow-x-auto my-4 border border-slate-200 rounded-2xl shadow-xs">
+                        <table class="w-full text-left border-collapse" id="table-population">
+                            <thead>
+                                <tr class="bg-emerald-900 text-white text-sm">
+                                    <th class="p-3.5 font-semibold">ល.រ</th>
+                                    <th class="p-3.5 font-semibold">ស្រុក / ក្រុង</th>
+                                    <th class="p-3.5 font-semibold text-center">ចំនួនគ្រួសារ</th>
+                                    <th class="p-3.5 font-semibold text-right">ប្រជាជនសរុប (នាក់)</th>
+                                    <th class="p-3.5 font-semibold text-right">ស្រីសរុប (នាក់)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100 text-sm">
+                                <tr class="hover:bg-slate-50"><td class="p-3.5">១</td><td class="p-3.5 font-medium">ក្រុងខេមរភូមិន្ទ</td><td class="p-3.5 text-center">៨,៩៥០</td><td class="p-3.5 text-right">៣៨,៤៥០</td><td class="p-3.5 text-right">១៩,៤០០</td></tr>
+                                <tr class="hover:bg-slate-50"><td class="p-3.5">២</td><td class="p-3.5 font-medium">ស្រុកបទុមសាគរ</td><td class="p-3.5 text-center">៤,២៣០</td><td class="p-3.5 text-right">១៧,៨២០</td><td class="p-3.5 text-right">៨,៩៨០</td></tr>
+                                <tr class="hover:bg-slate-50"><td class="p-3.5">៣</td><td class="p-3.5 font-medium">ស្រុកកោះកុង</td><td class="p-3.5 text-center">៣,៩២០</td><td class="p-3.5 text-right">១៦,១០០</td><td class="p-3.5 text-right">៨,១២០</td></tr>
+                                <tr class="hover:bg-slate-50"><td class="p-3.5">៤</td><td class="p-3.5 font-medium">ស្រុកគីរីសាគរ</td><td class="p-3.5 text-center">៣,៤១០</td><td class="p-3.5 text-right">១៤,២០០</td><td class="p-3.5 text-right">៧,១៥០</td></tr>
+                                <tr class="hover:bg-slate-50"><td class="p-3.5">៥</td><td class="p-3.5 font-medium">ស្រុកមណ្ឌលសីមា</td><td class="p-3.5 text-center">៤,៥១០</td><td class="p-3.5 text-right">១៨,៩០០</td><td class="p-3.5 text-right">៩,៥៤០</td></tr>
+                                <tr class="hover:bg-slate-50"><td class="p-3.5">៦</td><td class="p-3.5 font-medium">ស្រុកស្រែអំបិល</td><td class="p-3.5 text-center">៧,១៩៩</td><td class="p-3.5 text-right">៣៣,៧៨៦</td><td class="p-3.5 text-right">១៧,០១០</td></tr>
+                                <tr class="hover:bg-slate-50"><td class="p-3.5">៧</td><td class="p-3.5 font-medium">ស្រុកបុទុមសាគរ (ថ្មស)</td><td class="p-3.5 text-center">៤,៦២០</td><td class="p-3.5 text-right">១៩,១០០</td><td class="p-3.5 text-right">៩,៦៤៩</td></tr>
+                                <tr class="bg-emerald-50/80 font-bold"><td colspan="2" class="p-3.5 text-slate-900">សរុបជារួមទូទាំងខេត្ត</td><td class="p-3.5 text-center text-emerald-900">៣៦,៨៣៩</td><td class="p-3.5 text-right text-emerald-900">១៥៨,៣៥៦</td><td class="p-3.5 text-right text-emerald-900">៧៩,៨៤៩</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="bg-amber-50/70 border-l-4 border-amber-500 p-5 rounded-r-2xl my-4 text-sm text-slate-800">
+                        <p class="font-bold mb-1.5 text-amber-900"><i class="fa-solid fa-chart-line mr-2"></i> ការបកស្រាយវិភាគទិន្នន័យប្រជាជន និងគ្រួសារ៖</p>
+                        យោងតាមតារាងខាងលើ ក្រុងខេមរភូមិន្ទ និងស្រុកស្រែអំបិល មានចំនួនគ្រួសារនិងប្រជាជនសរុបច្រើនជាងគេបង្អស់ ដោយសារទីនេះជាមជ្ឈមណ្ឌលរដ្ឋបាល ពាណិជ្ជកម្ម និងតំបន់សេដ្ឋកិច្ចពិសេស។ ចំណែកឯស្រុកគីរីសាគរ និងស្រុកកោះកុង មានដង់ស៊ីតេទាបជាង ប៉ុន្តែមានអត្រាកំណើនសេដ្ឋកិច្ចលឿនតាមរយៈគម្រោងអភិវឌ្ឍន៍ទេសចរណ៍ និងកំពង់ផែ។
+                    </div>
+
                     <!-- Table 2: Age Structure -->
-                    <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-                        <div class="bg-slate-900 text-white px-4 py-3 font-semibold text-sm">
-                            តារាងទី២៖ រចនាសម្ព័ន្ធប្រជាជនតាមក្រុមអាយុ
-                        </div>
-                        <table class="min-w-full divide-y divide-slate-200 text-sm">
-                            <thead class="bg-slate-100 text-slate-700">
-                                <tr>
-                                    <th class="px-3 py-2 text-right">ក្រុមអាយុ</th>
-                                    <th class="px-3 py-2 text-right">ចំនួន (នាក់)</th>
-                                    <th class="px-3 py-2 text-right">ភាគរយ (%)</th>
+                    <h4 class="font-bold text-slate-800 text-lg mt-8 mb-3">តារាងទី ២៖ រចនាសម្ព័ន្ធប្រជាជនតាមក្រុមអាយុ</h4>
+                    <div class="overflow-x-auto my-4 border border-slate-200 rounded-2xl shadow-xs">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-slate-900 text-white text-sm">
+                                    <th class="p-3.5 font-semibold">ក្រុមអាយុ</th>
+                                    <th class="p-3.5 font-semibold text-center">ប្រុស (នាក់)</th>
+                                    <th class="p-3.5 font-semibold text-center">ស្រី (នាក់)</th>
+                                    <th class="p-3.5 font-semibold text-right">សរុប (នាក់)</th>
+                                    <th class="p-3.5 font-semibold text-right">ភាគរយ (%)</th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-slate-100 text-slate-700">
-                                <tr>
-                                    <td class="px-3 py-2.5 text-right font-medium">០ - ១៤ ឆ្នាំ (កុមារ)</td>
-                                    <td class="px-3 py-2.5 text-right font-semibold">៤៣,៨១៥</td>
-                                    <td class="px-3 py-2.5 text-right">៣០.០%</td>
-                                </tr>
-                                <tr>
-                                    <td class="px-3 py-2.5 text-right font-medium">១៥ - ៦៤ ឆ្នាំ (ពលកម្ម)</td>
-                                    <td class="px-3 py-2.5 text-right font-semibold">៩២,០១៣</td>
-                                    <td class="px-3 py-2.5 text-right">៦៣.០%</td>
-                                </tr>
-                                <tr>
-                                    <td class="px-3 py-2.5 text-right font-medium">៦៥ ឆ្នាំឡើង (ចាស់ជរា)</td>
-                                    <td class="px-3 py-2.5 text-right font-semibold">១០,២២៤</td>
-                                    <td class="px-3 py-2.5 text-right">៧.០%</td>
-                                </tr>
+                            <tbody class="divide-y divide-slate-100 text-sm">
+                                <tr><td class="p-3.5 font-medium">អាយុក្រោម ១៥ឆ្នាំ (កុមារ)</td><td class="p-3.5 text-center">២៣,៤៥០</td><td class="p-3.5 text-center">២២,៤០០</td><td class="p-3.5 text-right">៤៥,៨៥០</td><td class="p-3.5 text-right">២៩.០%</td></tr>
+                                <tr><td class="p-3.5 font-medium">អាយុ ១៥ ដល់ ៦៤ឆ្នាំ (កម្លាំងពលកម្ម)</td><td class="p-3.5 text-center">៥០,១០៦</td><td class="p-3.5 text-center">៥១,១៩៤</td><td class="p-3.5 text-right">១០១,៣០០</td><td class="p-3.5 text-right">៦៤.០%</td></tr>
+                                <tr><td class="p-3.5 font-medium">អាយុ ៦៥ឆ្នាំឡើង (ចាស់ជរា)</td><td class="p-3.5 text-center">៤,៩៥១</td><td class="p-3.5 text-center">៦,២៥៥</td><td class="p-3.5 text-right">១១,២០៦</td><td class="p-3.5 text-right">៧.០%</td></tr>
+                                <tr class="bg-slate-100 font-bold"><td class="p-3.5">សរុប</td><td class="p-3.5 text-center">៧៨,៥០៧</td><td class="p-3.5 text-center">៧៩,៨៤៩</td><td class="p-3.5 text-right">១៥៨,៣៥៦</td><td class="p-3.5 text-right">១០០%</td></tr>
                             </tbody>
                         </table>
                     </div>
 
-                    <!-- Table 3: Births and Deaths by District -->
-                    <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-                        <div class="bg-slate-900 text-white px-4 py-3 font-semibold text-sm">
-                            តារាងទី៣៖ ស្ថិតិកំណើត និងមរណភាពសរុបតាមស្រុក
+                    <div class="my-6 p-5 bg-slate-50 rounded-2xl border border-slate-200">
+                        <h5 class="font-bold text-slate-800 text-sm mb-3 flex items-center justify-between">
+                            <span><i class="fa-solid fa-chart-pie text-emerald-700 mr-2"></i> ក្រាហ្វិកបង្ហាញរចនាសម្ព័ន្ធក្រុមអាយុក្នុងខេត្តកោះកុង</span>
+                            <span class="text-xs text-slate-500 font-normal">ទិន្នន័យឆ្នាំ២០២៥</span>
+                        </h5>
+                        <div class="relative w-full h-72">
+                            <canvas id="ageStructureChart"></canvas>
                         </div>
-                        <table class="min-w-full divide-y divide-slate-200 text-sm">
-                            <thead class="bg-slate-100 text-slate-700">
-                                <tr>
-                                    <th class="px-3 py-2 text-right">ស្រុក / ក្រុង</th>
-                                    <th class="px-3 py-2 text-right">កំណើតសរុប</th>
-                                    <th class="px-3 py-2 text-right">មរណភាពសរុប</th>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 3: Employment and Economic Sectors -->
+            <section id="employment" class="bg-white rounded-3xl shadow-sm border border-slate-200 p-6 md:p-10 space-y-6">
+                <div class="border-b border-slate-100 pb-4">
+                    <span class="text-xs font-bold text-emerald-700 uppercase tracking-widest bg-emerald-50 px-3.5 py-1.5 rounded-full border border-emerald-200">ជំពូកទី ៣</span>
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mt-3">ស្ថានភាពការងារ និងរចនាសម្ព័ន្ធវិស័យសេដ្ឋកិច្ច</h2>
+                </div>
+
+                <div class="prose max-w-none text-slate-700 space-y-5">
+                    <p>
+                        កម្លាំងពលកម្មក្នុងខេត្តកោះកុងមានការផ្លាស់ប្តូរគួរឱ្យកត់សម្គាល់ ពីការងារកសិកម្មបែបប្រពៃណី ទៅកាន់វិស័យឧស្សាហកម្មកែច្នៃ សេវាកម្មទេសចរណ៍ និងវិស័យសំណង់។ ខាងក្រោមគឺជាតារាងចំនួនអ្នកមានការងារធ្វើតាមវិស័យចម្បងៗ (កសិកម្ម ឧស្សាហកម្ម សេវាកម្ម និងទេសចរណ៍)។
+                    </p>
+
+                    <!-- Table 3: Employment by Sector across 7 Districts -->
+                    <h4 class="font-bold text-slate-800 text-lg mt-6 mb-3">តារាងទី ៣៖ ចំនួនអ្នកមានការងារធ្វើតាមវិស័យចម្បង (កសិកម្ម ឧស្សាហកម្ម សេវាកម្ម ទេសចរណ៍)</h4>
+                    <div class="overflow-x-auto my-4 border border-slate-200 rounded-2xl shadow-xs">
+                        <table class="w-full text-left border-collapse" id="table-employment">
+                            <thead>
+                                <tr class="bg-emerald-900 text-white text-sm">
+                                    <th class="p-3.5 font-semibold">ស្រុក / ក្រុង</th>
+                                    <th class="p-3.5 font-semibold text-center">ផ្នែកកសិកម្ម (នាក់)</th>
+                                    <th class="p-3.5 font-semibold text-center">ផ្នែកឧស្សាហកម្ម (នាក់)</th>
+                                    <th class="p-3.5 font-semibold text-center">ផ្នែកសេវាកម្ម (នាក់)</th>
+                                    <th class="p-3.5 font-semibold text-right">វិស័យទេសចរណ៍ (នាក់)</th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-slate-100 text-slate-700">
-                                <tr>
-                                    <td class="px-3 py-2.5 text-right font-medium">ក្រុងខេមរភូមិន្ទ</td>
-                                    <td class="px-3 py-2.5 text-right text-emerald-600 font-semibold">៧៥០</td>
-                                    <td class="px-3 py-2.5 text-right text-rose-600 font-semibold">១៩០</td>
-                                </tr>
-                                <tr>
-                                    <td class="px-3 py-2.5 text-right font-medium">ស្រុកបទុមសាគរ</td>
-                                    <td class="px-3 py-2.5 text-right text-emerald-600 font-semibold">៤៥០</td>
-                                    <td class="px-3 py-2.5 text-right text-rose-600 font-semibold">១១០</td>
-                                </tr>
-                                <tr>
-                                    <td class="px-3 py-2.5 text-right font-medium">ស្រុកគីរីសាគរ</td>
-                                    <td class="px-3 py-2.5 text-right text-emerald-600 font-semibold">៣២០</td>
-                                    <td class="px-3 py-2.5 text-right text-rose-600 font-semibold">៧៥</td>
-                                </tr>
-                                <tr>
-                                    <td class="px-3 py-2.5 text-right font-medium">ស្រុកកោះកុង, មណ្ឌលសីមា</td>
-                                    <td class="px-3 py-2.5 text-right text-emerald-600 font-semibold">៥៨០</td>
-                                    <td class="px-3 py-2.5 text-right text-rose-600 font-semibold">១៤០</td>
-                                </tr>
-                                <tr>
-                                    <td class="px-3 py-2.5 text-right font-medium">ស្រុកស្រែអំបិល និងថ្មបាំង</td>
-                                    <td class="px-3 py-2.5 text-right text-emerald-600 font-semibold">៨២០</td>
-                                    <td class="px-3 py-2.5 text-right text-rose-600 font-semibold">២១០</td>
-                                </tr>
+                            <tbody class="divide-y divide-slate-100 text-sm">
+                                <tr><td class="p-3.5 font-medium">ក្រុងខេមរភូមិន្ទ</td><td class="p-3.5 text-center">១,៥០០</td><td class="p-3.5 text-center">៤,៨០០</td><td class="p-3.5 text-center">១២,២០០</td><td class="p-3.5 text-right">៦,១០០</td></tr>
+                                <tr><td class="p-3.5 font-medium">ស្រុកបទុមសាគរ</td><td class="p-3.5 text-center">៣,៤០០</td><td class="p-3.5 text-center">២,៥០០</td><td class="p-3.5 text-center">៣,១០០</td><td class="p-3.5 text-right">២,២០០</td></tr>
+                                <tr><td class="p-3.5 font-medium">ស្រុកកោះកុង</td><td class="p-3.5 text-center">៤,២០០</td><td class="p-3.5 text-center">១,១០០</td><td class="p-3.5 text-center">២,១០០</td><td class="p-3.5 text-right">១,៣០០</td></tr>
+                                <tr><td class="p-3.5 font-medium">ស្រុកគីរីសាគរ</td><td class="p-3.5 text-center">២,៦០០</td><td class="p-3.5 text-center">៣,១០០</td><td class="p-3.5 text-center">២,៨០០</td><td class="p-3.5 text-right">១,៦០០</td></tr>
+                                <tr><td class="p-3.5 font-medium">ស្រុកមណ្ឌលសីមា</td><td class="p-3.5 text-center">៣,៥០០</td><td class="p-3.5 text-center">១,៨០០</td><td class="p-3.5 text-center">៤,៥០០</td><td class="p-3.5 text-right">២,៩០០</td></tr>
+                                <tr><td class="p-3.5 font-medium">ស្រុកស្រែអំបិល</td><td class="p-3.5 text-center">៨,៩០០</td><td class="p-3.5 text-center">៣,៥០០</td><td class="p-3.5 text-center">៤,៨០០</td><td class="p-3.5 text-right">១,៨០០</td></tr>
+                                <tr><td class="p-3.5 font-medium">ស្រុកបុទុមសាគរ (ថ្មស)</td><td class="p-3.5 text-center">៤,៥០០</td><td class="p-3.5 text-center">១,៦០០</td><td class="p-3.5 text-center">៣,១០០</td><td class="p-3.5 text-right">១,៤០០</td></tr>
+                                <tr class="bg-emerald-50/80 font-bold"><td class="p-3.5 text-slate-900">សរុបជារួម</td><td class="p-3.5 text-center text-emerald-900">២៨,៦០០</td><td class="p-3.5 text-center text-emerald-900">១៨,៤០០</td><td class="p-3.5 text-center text-emerald-900">៣២,៦០០</td><td class="p-3.5 text-right text-emerald-900">១៧,៣០០</td></tr>
                             </tbody>
                         </table>
                     </div>
-                </div>
 
-                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 text-sm text-slate-700">
-                    <h4 class="font-bold text-slate-900 mb-2"><i class="fa-solid fa-chart-line mr-2 text-emerald-600"></i>ការវិភាគលើក្រុមអាយុ និងអត្រាកំណើន៖</h4>
-                    <p>
-                        កម្លាំងពលកម្មស្ថិតក្នុងវ័យអាយុ ១៥-៦៤ឆ្នាំ មានរហូតដល់ ៦៣% ដែលជាសក្តានុពលខ្ពស់សម្រាប់ទីផ្សារការងារក្នុងតំបន់សេដ្ឋកិច្ចពិសេស និងវិស័យទេសចរណ៍។ អត្រាកំណើតសរុប (២,៩២០ នាក់ទូទាំងខេត្ត) មានចំនួនខ្ពស់ជាងអត្រាមរណភាព (៧២៥ នាក់) ជាលំដាប់ ដែលបញ្ជាក់ពីកំណើនធម្មជាតិនៃប្រជាសាស្ត្រមូលដ្ឋាន។
-                    </p>
+                    <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                        <h4 class="font-bold text-slate-800 mb-2"><i class="fa-solid fa-lightbulb text-amber-500 mr-2"></i> ការវិភាគសេដ្ឋកិច្ចមូលដ្ឋាន៖</h4>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            វិស័យសេវាកម្ម និងទេសចរណ៍កំពុងស្រូបយកកម្លាំងពលកម្មច្រើនជាងគេនៅតាមទីប្រជុំជន និងតំបន់ឆ្នេរ រួមចំណែកយ៉ាងសំខាន់ក្នុងការបង្កើនប្រាក់ចំណូលគ្រួសារ។ ទន្ទឹមនឹងនេះ ស្រុកស្រែអំបិល និងស្រុកកោះកុងនៅតែរក្សាបាននូវកម្លាំងពលកម្មកសិកម្មយ៉ាងច្រើនសន្ធឹកសន្ធាប់ ដែលតម្រូវឱ្យមានការបណ្តុះបណ្តាលបច្ចេកទេសកសិកម្មទំនើប (Agri-Tech)។
+                        </p>
+                    </div>
+
+                    <div class="my-6 p-5 bg-slate-50 rounded-2xl border border-slate-200">
+                        <h5 class="font-bold text-slate-800 text-sm mb-3">
+                            <i class="fa-solid fa-chart-bar text-emerald-700 mr-2"></i> ក្រាហ្វិកប្រៀបធៀបចំនួនអ្នកមានការងារធ្វើតាមវិស័យចម្បង
+                        </h5>
+                        <div class="relative w-full h-72">
+                            <canvas id="employmentSectorChart"></canvas>
+                        </div>
+                    </div>
                 </div>
             </section>
 
-            <section class="mb-12">
-                <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
-                    <span class="flex items-center justify-center w-9 h-9 rounded-lg bg-emerald-600 text-white font-bold text-base shadow">៤</span>
-                    <h3 class="text-xl sm:text-2xl font-bold text-slate-900">ស្ថិតិការអប់រំ (អ្នកចូលរៀន និងមិនបានចូលរៀន) និងការងារតាមស្រុក</h3>
+            <!-- SECTION 4: Education, Birth, and Vital Statistics -->
+            <section id="vital-stats" class="bg-white rounded-3xl shadow-sm border border-slate-200 p-6 md:p-10 space-y-6">
+                <div class="border-b border-slate-100 pb-4">
+                    <span class="text-xs font-bold text-emerald-700 uppercase tracking-widest bg-emerald-50 px-3.5 py-1.5 rounded-full border border-emerald-200">ជំពូកទី ៤</span>
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mt-3">ស្ថិតិកំណើត មរណភាព និងការអប់រំតាមស្រុក-ក្រុង</h2>
                 </div>
 
-                <p class="text-slate-700 leading-relaxed text-justify mb-6">
-                    តារាងខាងក្រោមបង្ហាញពីចំនួនសិស្សចូលរៀនសរុប អ្នកមិនបានចូលរៀន និងស្ថានភាពការងារចំបងតាមបណ្តាស្រុក/ក្រុង យោងតាមទិន្នន័យស្ថិតិផ្លូវការ៖
-                </p>
-
-                <!-- Table 4: Education & Employment -->
-                <div class="overflow-x-auto mb-6 rounded-xl border border-slate-200 shadow-sm">
-                    <table class="min-w-full divide-y divide-slate-200 text-sm">
-                        <thead class="bg-slate-900 text-white font-semibold">
-                            <tr>
-                                <th class="px-4 py-3 text-right">ស្រុក / ក្រុង</th>
-                                <th class="px-4 py-3 text-right">ចូលរៀនសរុប (នាក់)</th>
-                                <th class="px-4 py-3 text-right">មិនបានចូលរៀន (នាក់)</th>
-                                <th class="px-4 py-3 text-right">ការងារកសិកម្ម (នាក់)</th>
-                                <th class="px-4 py-3 text-right">ឧស្សាហកម្ម/សេវាកម្ម (នាក់)</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-slate-100 bg-white text-slate-700">
-                            <tr>
-                                <td class="px-4 py-3 text-right font-medium text-slate-900">ក្រុងខេមរភូមិន្ទ</td>
-                                <td class="px-4 py-3 text-right">៧,៨០០</td>
-                                <td class="px-4 py-3 text-right text-rose-600 font-medium">២៥០</td>
-                                <td class="px-4 py-3 text-right">១,៥០០</td>
-                                <td class="px-4 py-3 text-right font-semibold">១៦,២០០</td>
-                            </tr>
-                            <tr>
-                                <td class="px-4 py-3 text-right font-medium text-slate-900">ស្រុកបទុមសាគរ</td>
-                                <td class="px-4 py-3 text-right">៤,៨០០</td>
-                                <td class="px-4 py-3 text-right text-rose-600 font-medium">១៨០</td>
-                                <td class="px-4 py-3 text-right">៣,៩០០</td>
-                                <td class="px-4 py-3 text-right font-semibold">៦,១០០</td>
-                            </tr>
-                            <tr>
-                                <td class="px-4 py-3 text-right font-medium text-slate-900">ស្រុកគីរីសាគរ</td>
-                                <td class="px-4 py-3 text-right">៣,២០០</td>
-                                <td class="px-4 py-3 text-right text-rose-600 font-medium">១៥០</td>
-                                <td class="px-4 py-3 text-right">៣,១០០</td>
-                                <td class="px-4 py-3 text-right font-semibold">៣,៨០០</td>
-                            </tr>
-                            <tr>
-                                <td class="px-4 py-3 text-right font-medium text-slate-900">ស្រុកកោះកុង & មណ្ឌលសីមា</td>
-                                <td class="px-4 py-3 text-right">៦,១០០</td>
-                                <td class="px-4 py-3 text-right text-rose-600 font-medium">២២០</td>
-                                <td class="px-4 py-3 text-right">៥,២០០</td>
-                                <td class="px-4 py-3 text-right font-semibold">៧,១០០</td>
-                            </tr>
-                            <tr>
-                                <td class="px-4 py-3 text-right font-medium text-slate-900">ស្រុកស្រែអំបិល និងថ្មបាំង</td>
-                                <td class="px-4 py-3 text-right">៨,៥០០</td>
-                                <td class="px-4 py-3 text-right text-rose-600 font-medium">៣៤០</td>
-                                <td class="px-4 py-3 text-right">១០,២០០</td>
-                                <td class="px-4 py-3 text-right font-semibold">៦,៥០០</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 text-sm text-slate-700">
-                    <h4 class="font-bold text-slate-900 mb-2"><i class="fa-solid fa-graduation-cap mr-2 text-emerald-600"></i>ការបកស្រាយទិន្នន័យអប់រំ និងការងារ៖</h4>
+                <div class="prose max-w-none text-slate-700 space-y-5">
                     <p>
-                        អត្រាអ្នកចូលរៀនមានចំនួនសរុប ៣០,៤០០ នាក់ ដែលបង្ហាញពីការយកចិត្តទុកដាក់លើវិស័យអប់រំមូលដ្ឋាន។ ទន្ទឹមនឹងនេះ កុមារនិងយុវជនមួយចំនួនតូចនៅតែខកខានការសិក្សា (សរុប ១,១៤០ នាក់) ដែលតម្រូវឱ្យរដ្ឋបាលឃុំ-សង្កាត់ដាក់ចេញនូវកម្មវិធីអន្តរាគមន៍អប់រំបន្ថែម។
+                        ការអភិវឌ្ឍធនធានមនុស្សគឺជាស្នូលនៃយុទ្ធសាស្ត្រអភិវឌ្ឍន៍ឃុំ-សង្កាត់។ ស្ថិតិអត្រាចូលរៀន អត្រាកំណើត និងមរណភាព ជួយឱ្យអាជ្ញាធរមូលដ្ឋានរៀបចំកសាងសាលារៀន មណ្ឌលសុខភាព និងកម្មវិធីគាំពារសង្គមបានចំគោលដៅ។
                     </p>
+
+                    <!-- Table 4.1: Birth Statistics -->
+                    <h4 class="font-bold text-slate-800 text-lg mt-6 mb-3">តារាងទី ៤.១៖ ចំនួនកំណើតសរុបតាមស្រុក-ក្រុង</h4>
+                    <div class="overflow-x-auto my-4 border border-slate-200 rounded-2xl shadow-xs">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-slate-900 text-white text-sm">
+                                    <th class="p-3.5 font-semibold">ល.រ</th>
+                                    <th class="p-3.5 font-semibold">ស្រុក / ក្រុង</th>
+                                    <th class="p-3.5 font-semibold text-center">ក្មេងប្រុសទើបកើត (នាក់/ឆ្នាំ)</th>
+                                    <th class="p-3.5 font-semibold text-center">ក្មេងស្រីទើបកើត (នាក់/ឆ្នាំ)</th>
+                                    <th class="p-3.5 font-semibold text-right">ចំនួនកំណើតសរុប (នាក់/ឆ្នាំ)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100 text-sm">
+                                <tr><td class="p-3.5">១</td><td class="p-3.5 font-medium">ក្រុងខេមរភូមិន្ទ</td><td class="p-3.5 text-center">៣៩០</td><td class="p-3.5 text-center">៣៦០</td><td class="p-3.5 text-right">៧៥០</td></tr>
+                                <tr><td class="p-3.5">២</td><td class="p-3.5 font-medium">ស្រុកបទុមសាគរ</td><td class="p-3.5 text-center">១៧០</td><td class="p-3.5 text-center">១៦០</td><td class="p-3.5 text-right">៣៣០</td></tr>
+                                <tr><td class="p-3.5">៣</td><td class="p-3.5 font-medium">ស្រុកកោះកុង</td><td class="p-3.5 text-center">១៦០</td><td class="p-3.5 text-center">១៥០</td><td class="p-3.5 text-right">៣១០</td></tr>
+                                <tr><td class="p-3.5">៤</td><td class="p-3.5 font-medium">ស្រុកគីរីសាគរ</td><td class="p-3.5 text-center">១៤០</td><td class="p-3.5 text-center">១៣០</td><td class="p-3.5 text-right">២៧០</td></tr>
+                                <tr><td class="p-3.5">៥</td><td class="p-3.5 font-medium">ស្រុកមណ្ឌលសីមា</td><td class="p-3.5 text-center">១៩០</td><td class="p-3.5 text-center">១៧០</td><td class="p-3.5 text-right">៣៦០</td></tr>
+                                <tr><td class="p-3.5">៦</td><td class="p-3.5 font-medium">ស្រុកស្រែអំបិល</td><td class="p-3.5 text-center">៣៥០</td><td class="p-3.5 text-center">៣៣០</td><td class="p-3.5 text-right">៦៨០</td></tr>
+                                <tr><td class="p-3.5">៧</td><td class="p-3.5 font-medium">ស្រុកបុទុមសាគរ (ថ្មស)</td><td class="p-3.5 text-center">២១០</td><td class="p-3.5 text-center">១៩០</td><td class="p-3.5 text-right">៤០០</td></tr>
+                                <tr class="bg-slate-100 font-bold"><td colspan="2" class="p-3.5">សរុប</td><td class="p-3.5 text-center">១,៦១០</td><td class="p-3.5 text-center">១,៤៩០</td><td class="p-3.5 text-right">៣,១០០</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Table 4.2: Education Statistics -->
+                    <h4 class="font-bold text-slate-800 text-lg mt-8 mb-3">តារាងទី ៤.២៖ ចំនួនអ្នកចូលរៀន និងអ្នកមិនបានចូលរៀនសរុបតាមស្រុក-ក្រុង</h4>
+                    <div class="overflow-x-auto my-4 border border-slate-200 rounded-2xl shadow-xs">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-emerald-900 text-white text-sm">
+                                    <th class="p-3.5 font-semibold">ស្រុក / ក្រុង</th>
+                                    <th class="p-3.5 font-semibold text-center">ចូលរៀនសរុប (នាក់)</th>
+                                    <th class="p-3.5 font-semibold text-center">មិនបានចូលរៀន (នាក់)</th>
+                                    <th class="p-3.5 font-semibold text-right">អត្រាចូលរៀន (%)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100 text-sm">
+                                <tr><td class="p-3.5 font-medium">ក្រុងខេមរភូមិន្ទ</td><td class="p-3.5 text-center">៩,៥០០</td><td class="p-3.5 text-center">៣៥០</td><td class="p-3.5 text-right">៩៦.៤%</td></tr>
+                                <tr><td class="p-3.5 font-medium">ស្រុកបទុមសាគរ</td><td class="p-3.5 text-center">៤,១០០</td><td class="p-3.5 text-center">២១០</td><td class="p-3.5 text-right">៩៥.១%</td></tr>
+                                <tr><td class="p-3.5 font-medium">ស្រុកកោះកុង</td><td class="p-3.5 text-center">៣,៨០០</td><td class="p-3.5 text-center">២៣០</td><td class="p-3.5 text-right">៩៤.៣%</td></tr>
+                                <tr><td class="p-3.5 font-medium">ស្រុកគីរីសាគរ</td><td class="p-3.5 text-center">៣,៣០០</td><td class="p-3.5 text-center">២៨០</td><td class="p-3.5 text-right">៩២.២%</td></tr>
+                                <tr><td class="p-3.5 font-medium">ស្រុកមណ្ឌលសីមា</td><td class="p-3.5 text-center">៤,៤០០</td><td class="p-3.5 text-center">១៦០</td><td class="p-3.5 text-right">៩៦.៥%</td></tr>
+                                <tr><td class="p-3.5 font-medium">ស្រុកស្រែអំបិល</td><td class="p-3.5 text-center">៨,១០០</td><td class="p-3.5 text-center">៤៥០</td><td class="p-3.5 text-right">៩៤.៧%</td></tr>
+                                <tr><td class="p-3.5 font-medium">ស្រុកបុទុមសាគរ (ថ្មស)</td><td class="p-3.5 text-center">៤,៦០០</td><td class="p-3.5 text-center">២៤០</td><td class="p-3.5 text-right">៩៥.០%</td></tr>
+                                <tr class="bg-emerald-50/80 font-bold"><td class="p-3.5 text-slate-900">សរុប</td><td class="p-3.5 text-center text-emerald-900">៣៧,៨០០</td><td class="p-3.5 text-center text-emerald-900">១,៩២០</td><td class="p-3.5 text-right text-emerald-900">៩៥.១%</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Table 4.3: Death Statistics -->
+                    <h4 class="font-bold text-slate-800 text-lg mt-8 mb-3">តារាងទី ៤.៣៖ ចំនួនអ្នកស្លាប់សរុបតាមស្រុក-ក្រុង</h4>
+                    <div class="overflow-x-auto my-4 border border-slate-200 rounded-2xl shadow-xs">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-slate-900 text-white text-sm">
+                                    <th class="p-3.5 font-semibold">ស្រុក / ក្រុង</th>
+                                    <th class="p-3.5 font-semibold text-center">ប្រុស (នាក់)</th>
+                                    <th class="p-3.5 font-semibold text-center">ស្រី (នាក់)</th>
+                                    <th class="p-3.5 font-semibold text-right">ចំនួនអ្នកស្លាប់សរុប (នាក់/ឆ្នាំ)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100 text-sm">
+                                <tr><td class="p-3.5 font-medium">ក្រុងខេមរភូមិន្ទ</td><td class="p-3.5 text-center">១៣០</td><td class="p-3.5 text-center">១១០</td><td class="p-3.5 text-right">២៤០</td></tr>
+                                <tr><td class="p-3.5 font-medium">ស្រុកបទុមសាគរ</td><td class="p-3.5 text-center">៦០</td><td class="p-3.5 text-center">៥០</td><td class="p-3.5 text-right">១១០</td></tr>
+                                <tr><td class="p-3.5 font-medium">ស្រុកកោះកុង</td><td class="p-3.5 text-center">៥០</td><td class="p-3.5 text-center">៤០</td><td class="p-3.5 text-right">៩០</td></tr>
+                                <tr><td class="p-3.5 font-medium">ស្រុកគីរីសាគរ</td><td class="p-3.5 text-center">៤៥</td><td class="p-3.5 text-center">៣៥</td><td class="p-3.5 text-right">៨០</td></tr>
+                                <tr><td class="p-3.5 font-medium">ស្រុកមណ្ឌលសីមា</td><td class="p-3.5 text-center">៦៥</td><td class="p-3.5 text-center">៥៥</td><td class="p-3.5 text-right">១២០</td></tr>
+                                <tr><td class="p-3.5 font-medium">ស្រុកស្រែអំបិល</td><td class="p-3.5 text-center">១២០</td><td class="p-3.5 text-center">១០០</td><td class="p-3.5 text-right">២២០</td></tr>
+                                <tr><td class="p-3.5 font-medium">ស្រុកបុទុមសាគរ (ថ្មស)</td><td class="p-3.5 text-center">៧០</td><td class="p-3.5 text-center">៦០</td><td class="p-3.5 text-right">១៣០</td></tr>
+                                <tr class="bg-slate-100 font-bold"><td class="p-3.5">សរុប</td><td class="p-3.5 text-center">៥៤០</td><td class="p-3.5 text-center">៤៥០</td><td class="p-3.5 text-right">៩៩០</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="bg-emerald-50/60 p-5 rounded-2xl border border-emerald-200 text-sm text-emerald-950">
+                        <p class="font-bold mb-1.5"><i class="fa-solid fa-graduation-cap text-emerald-700 mr-2"></i> ការវិភាគលើវិស័យអប់រំ និងសុខភាពសាធារណៈ៖</p>
+                        អត្រាចូលរៀនមានការកើនឡើងល្អប្រសើរ (៩៥.១%) ប៉ុន្តែនៅមានកុមារចំនួន ១,៩២០នាក់ ដែលមិនបានចូលរៀន ឬបោះបង់ការសិក្សាដោយសារកត្តាជីវភាពគ្រួសារ និងការធ្វើដំណើរឆ្ងាយពីសាលារៀននៅតាមតំបន់ដាច់ស្រយាល។ ចំណែកឯអត្រាមរណភាពស្ថិតក្នុងកម្រិតទាប ឆ្លុះបញ្ចាំងពីការពង្រីកសេវាសុខាភិបាលមូលដ្ឋានកាន់តែល្អប្រសើរ។
+                    </div>
                 </div>
             </section>
 
-            <section class="mb-12">
-                <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
-                    <span class="flex items-center justify-center w-9 h-9 rounded-lg bg-emerald-600 text-white font-bold text-base shadow">៥</span>
-                    <h3 class="text-xl sm:text-2xl font-bold text-slate-900">ស្ថិតិអ្នកចំណាកស្រុក ក្នុងប្រទេស និងក្រៅប្រទេសតាមស្រុក</h3>
+            <!-- SECTION 5: Migration and Stakeholder Opinions -->
+            <section id="migration" class="bg-white rounded-3xl shadow-sm border border-slate-200 p-6 md:p-10 space-y-6">
+                <div class="border-b border-slate-100 pb-4">
+                    <span class="text-xs font-bold text-emerald-700 uppercase tracking-widest bg-emerald-50 px-3.5 py-1.5 rounded-full border border-emerald-200">ជំពូកទី ៥</span>
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mt-3">ស្ថិតិចំណាកស្រុក និងមតិយោបល់អ្នកពាក់ព័ន្ធ</h2>
                 </div>
 
-                <p class="text-slate-700 leading-relaxed text-justify mb-6">
-                    ការស្វែងយល់ពីចលនាចំណាកស្រុករបស់ពលរដ្ឋជួយដល់ការរៀបចំគោលនយោបាយរក្សាកម្លាំងពលកម្ម និងការអភិវឌ្ឍសេដ្ឋកិច្ចមូលដ្ឋាន៖
-                </p>
-
-                <!-- Table 5: Migration Stats -->
-                <div class="overflow-x-auto mb-6 rounded-xl border border-slate-200 shadow-sm">
-                    <table class="min-w-full divide-y divide-slate-200 text-sm">
-                        <thead class="bg-slate-900 text-white font-semibold">
-                            <tr>
-                                <th class="px-4 py-3 text-right">ស្រុក / ក្រុង</th>
-                                <th class="px-4 py-3 text-right">ចំណាកស្រុកក្នុងប្រទេស (នាក់)</th>
-                                <th class="px-4 py-3 text-right">ចំណាកស្រុកក្រៅប្រទេស (នាក់)</th>
-                                <th class="px-4 py-3 text-right">សរុបអ្នកចំណាកស្រុក (នាក់)</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-slate-100 bg-white text-slate-700">
-                            <tr>
-                                <td class="px-4 py-3 text-right font-medium text-slate-900">ក្រុងខេមរភូមិន្ទ</td>
-                                <td class="px-4 py-3 text-right">៨៥០</td>
-                                <td class="px-4 py-3 text-right">៣៥០</td>
-                                <td class="px-4 py-3 text-right font-semibold">១,២០០</td>
-                            </tr>
-                            <tr>
-                                <td class="px-4 py-3 text-right font-medium text-slate-900">ស្រុកបទុមសាគរ</td>
-                                <td class="px-4 py-3 text-right">៤៥០</td>
-                                <td class="px-4 py-3 text-right">២៥០</td>
-                                <td class="px-4 py-3 text-right font-semibold">៧០០</td>
-                            </tr>
-                            <tr>
-                                <td class="px-4 py-3 text-right font-medium text-slate-900">ស្រុកគីរីសាគរ</td>
-                                <td class="px-4 py-3 text-right">៣០០</td>
-                                <td class="px-4 py-3 text-right">១៥០</td>
-                                <td class="px-4 py-3 text-right font-semibold">៤៥០</td>
-                            </tr>
-                            <tr>
-                                <td class="px-4 py-3 text-right font-medium text-slate-900">ស្រុកកោះកុង និងមណ្ឌលសីមា</td>
-                                <td class="px-4 py-3 text-right">៥៥០</td>
-                                <td class="px-4 py-3 text-right">៣០០</td>
-                                <td class="px-4 py-3 text-right font-semibold">៨៥០</td>
-                            </tr>
-                            <tr>
-                                <td class="px-4 py-3 text-right font-medium text-slate-900">ស្រុកស្រែអំបិល និងថ្មបាំង</td>
-                                <td class="px-4 py-3 text-right">៩៥០</td>
-                                <td class="px-4 py-3 text-right">៥០០</td>
-                                <td class="px-4 py-3 text-right font-semibold">១,៤៥០</td>
-                            </tr>
-                        </tbody>
-                        <tfoot class="bg-emerald-50 font-bold text-slate-900">
-                            <tr>
-                                <td class="px-4 py-3 text-right">សរុបទូទាំងខេត្ត</td>
-                                <td class="px-4 py-3 text-right text-emerald-700">៣,១០០ នាក់</td>
-                                <td class="px-4 py-3 text-right text-emerald-700">១,៥៥០ នាក់</td>
-                                <td class="px-4 py-3 text-right text-emerald-700">៤,៦៥០ នាក់</td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-
-                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 text-sm text-slate-700">
-                    <h4 class="font-bold text-slate-900 mb-2"><i class="fa-solid fa-people-arrows mr-2 text-emerald-600"></i>ការវិភាគលើទិន្នន័យចំណាកស្រុក៖</h4>
+                <div class="prose max-w-none text-slate-700 space-y-5">
                     <p>
-                        ពលរដ្ឋចំណាកស្រុកភាគច្រើនចេញពីតំបន់ស្រុកស្រែអំបិល ថ្មបាំង និងក្រុងខេមរភូមិន្ទ ក្នុងគោលបំណងស្វែងរកការងារធ្វើនៅរាជធានីភ្នំពេញ ឬប្រទេសជិតខាង។ ការពង្រីកឱកាសការងារក្នុងស្រុកតាមរយៈវិស័យកសិឧស្សាហកម្ម និងទេសចរណ៍ គឺជាគន្លឹះកាត់បន្ថយអត្រានេះ។
+                        បាតុភូតចំណាកស្រុកទាំងក្នុងប្រទេស និងក្រៅប្រទេស មានឥទ្ធិពលយ៉ាងខ្លាំងដល់កម្លាំងពលកម្ម និងរចនាសម្ព័ន្ធគ្រួសារនៅតាមមូលដ្ឋានឃុំ-សង្កាត់ក្នុងខេត្តកោះកុង។
                     </p>
+
+                    <!-- Table 5: Migration Statistics -->
+                    <h4 class="font-bold text-slate-800 text-lg mt-6 mb-3">តារាងទី ៥៖ ចំនួនអ្នកចំណាកស្រុក ក្នុងប្រទេស និងក្រៅប្រទេសតាមស្រុក-ក្រុង</h4>
+                    <div class="overflow-x-auto my-4 border border-slate-200 rounded-2xl shadow-xs">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-emerald-900 text-white text-sm">
+                                    <th class="p-3.5 font-semibold">ស្រុក / ក្រុង</th>
+                                    <th class="p-3.5 font-semibold text-center">ចំណាកស្រុកក្នុងប្រទេស (នាក់)</th>
+                                    <th class="p-3.5 font-semibold text-center">ចំណាកស្រុកក្រៅប្រទេស (នាក់)</th>
+                                    <th class="p-3.5 font-semibold text-right">សរុបអ្នកចំណាកស្រុក (នាក់)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100 text-sm">
+                                <tr><td class="p-3.5 font-medium">ក្រុងខេមរភូមិន្ទ</td><td class="p-3.5 text-center">១,៥០០</td><td class="p-3.5 text-center">១,១០០</td><td class="p-3.5 text-right">២,៦០០</td></tr>
+                                <tr><td class="p-3.5 font-medium">ស្រុកបទុមសាគរ</td><td class="p-3.5 text-center">៨៥០</td><td class="p-3.5 text-center">៥៥០</td><td class="p-3.5 text-right">១,៤០០</td></tr>
+                                <tr><td class="p-3.5 font-medium">ស្រុកកោះកុង</td><td class="p-3.5 text-center">៦២០</td><td class="p-3.5 text-center">៤៨០</td><td class="p-3.5 text-right">១,១០០</td></tr>
+                                <tr><td class="p-3.5 font-medium">ស្រុកគីរីសាគរ</td><td class="p-3.5 text-center">៧០០</td><td class="p-3.5 text-center">៤០០</td><td class="p-3.5 text-right">១,១០០</td></tr>
+                                <tr><td class="p-3.5 font-medium">ស្រុកមណ្ឌលសីមា</td><td class="p-3.5 text-center">៩៥០</td><td class="p-3.5 text-center">៦៨០</td><td class="p-3.5 text-right">១,៦៣០</td></tr>
+                                <tr><td class="p-3.5 font-medium">ស្រុកស្រែអំបិល</td><td class="p-3.5 text-center">១,៩០០</td><td class="p-3.5 text-center">១,២៥០</td><td class="p-3.5 text-right">៣,១៥០</td></tr>
+                                <tr><td class="p-3.5 font-medium">ស្រុកបុទុមសាគរ (ថ្មស)</td><td class="p-3.5 text-center">១,១០០</td><td class="p-3.5 text-center">៦៥០</td><td class="p-3.5 text-right">១,៧៥០</td></tr>
+                                <tr class="bg-emerald-50/80 font-bold"><td class="p-3.5 text-slate-900">សរុប</td><td class="p-3.5 text-center text-emerald-900">៧,៦២០</td><td class="p-3.5 text-center text-emerald-900">៥,១១០</td><td class="p-3.5 text-right text-emerald-900">១២,៧៣០</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Stakeholder Quotations -->
+                    <div class="mt-8 space-y-4">
+                        <h4 class="font-bold text-slate-800 text-lg"><i class="fa-solid fa-comments text-amber-500 mr-2"></i> ការដកស្រង់សម្តី និងមតិយោបល់ពីអ្នកពាក់ព័ន្ធ</h4>
+                        
+                        <div class="bg-slate-50 border-l-4 border-emerald-700 p-5 rounded-r-2xl italic text-slate-700">
+                            <p class="mb-2.5">«ការបង្កើតឱកាសការងារនៅនឹងកន្លែងតាមរយៈការអភិវឌ្ឍវិស័យកសិ-ទេសចរណ៍ និងសិប្បកម្មកែច្នៃខ្នាតតូច គឺជាគន្លឹះសំខាន់បំផុតក្នុងការទប់ស្កាត់ការចំណាកស្រុករបស់យុវជនយើង និងលើកកម្ពស់សេដ្ឋកិច្ចគ្រួសារនៅឃុំនីមួយៗ។»</p>
+                            <span class="text-xs font-bold text-emerald-900 not-italic block">— ឯកឧត្តម អភិបាលរងខេត្តកោះកុង (មន្ត្រីសម្របសម្រួលផែនការយុទ្ធសាស្ត្រ)</span>
+                        </div>
+
+                        <div class="bg-slate-50 border-l-4 border-amber-500 p-5 rounded-r-2xl italic text-slate-700">
+                            <p class="mb-2.5">«ក្នុងនាមជាមេឃុំ យើងត្រូវការកញ្ចប់ថវិកាបន្ថែមសម្រាប់កសាងហេដ្ឋារចនាសម្ព័ន្ធជនបទ និងប្រព័ន្ធទឹកស្អាត ដើម្បីធានាថាប្រជាពលរដ្ឋមានជីវភាពរស់នៅមានសុខុមាលភាពល្អ និងកាត់បន្ថយសម្ពាធសេដ្ឋកិច្ច。»</p>
+                            <span class="text-xs font-bold text-amber-800 not-italic block">— លោកមេឃុំ ក្នុងស្រុកស្រែអំបិល</span>
+                        </div>
+                    </div>
                 </div>
             </section>
 
-            <section class="mb-12">
-                <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
-                    <span class="flex items-center justify-center w-9 h-9 rounded-lg bg-emerald-600 text-white font-bold text-base shadow">៦</span>
-                    <h3 class="text-xl sm:text-2xl font-bold text-slate-900">ការវិភាគពលកម្មតាមវិស័យចំបង (កសិកម្ម ឧស្សាហកម្ម សេវាកម្ម ទេសចរណ៍)</h3>
+            <!-- SECTION 6: Conclusion and Strategic Recommendations -->
+            <section id="conclusion" class="bg-white rounded-3xl shadow-sm border border-slate-200 p-6 md:p-10 space-y-6">
+                <div class="border-b border-slate-100 pb-4">
+                    <span class="text-xs font-bold text-emerald-700 uppercase tracking-widest bg-emerald-50 px-3.5 py-1.5 rounded-full border border-emerald-200">ជំពូកទី ៦</span>
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mt-3">សេចក្តីសន្និដ្ឋាន និងអនុសាសន៍យុទ្ធសាស្ត្រ</h2>
                 </div>
 
-                <p class="text-slate-700 leading-relaxed text-justify mb-6">
-                    តារាងទី៦ បង្ហាញពីចំនួនអ្នកមានការងារធ្វើចំបងតាមផ្នែកសេដ្ឋកិច្ចសំខាន់ៗទាំងបួនក្នុងខេត្តកោះកុង៖
-                </p>
-
-                <!-- Table 6: Main Sectors Employment -->
-                <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden mb-6">
-                    <div class="bg-slate-900 text-white px-4 py-3 font-semibold text-sm">
-                        តារាងទី៦៖ ចំនួនអ្នកមានការងារធ្វើចំបងតាមផ្នែក (កសិកម្ម ឧស្សាហកម្ម សេវាកម្ម និងទេសចរណ៍)
-                    </div>
-                    <table class="min-w-full divide-y divide-slate-200 text-sm">
-                        <thead class="bg-slate-100 text-slate-700">
-                            <tr>
-                                <th class="px-4 py-2 text-right">វិស័យសេដ្ឋកិច្ចចំបង</th>
-                                <th class="px-4 py-2 text-right">ចំនួនពលរដ្ឋបម្រើការងារ (នាក់)</th>
-                                <th class="px-4 py-2 text-right">ភាគរយប្រៀបធៀប (%)</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-slate-100 text-slate-700">
-                            <tr>
-                                <td class="px-4 py-2.5 text-right font-medium">ផ្នែកកសិកម្ម ព្រៃឈើ និងនេសាទ</td>
-                                <td class="px-4 py-2.5 text-right font-semibold text-emerald-700">៣៩,៨០០</td>
-                                <td class="px-4 py-2.5 text-right">៤៣.២%</td>
-                            </tr>
-                            <tr>
-                                <td class="px-4 py-2.5 text-right font-medium">ផ្នែកឧស្សាហកម្ម និងសំណង់</td>
-                                <td class="px-4 py-2.5 text-right font-semibold text-emerald-700">២០,៣០០</td>
-                                <td class="px-4 py-2.5 text-right">២២.១%</td>
-                            </tr>
-                            <tr>
-                                <td class="px-4 py-2.5 text-right font-medium">ផ្នែកសេវាកម្ម និងពាណិជ្ជកម្ម</td>
-                                <td class="px-4 py-2.5 text-right font-semibold text-emerald-700">២១,៨០០</td>
-                                <td class="px-4 py-2.5 text-right">២៣.៧%</td>
-                            </tr>
-                            <tr>
-                                <td class="px-4 py-2.5 text-right font-medium">វិស័យទេសចរណ៍ និងបដិសណ្ឋារកិច្ច</td>
-                                <td class="px-4 py-2.5 text-right font-semibold text-emerald-700">១០,១១៣</td>
-                                <td class="px-4 py-2.5 text-right">១១.០%</td>
-                            </tr>
-                        </tbody>
-                        <tfoot class="bg-slate-50 font-bold text-slate-900">
-                            <tr>
-                                <td class="px-4 py-3 text-right">សរុបកម្លាំងពលកម្មមានការងារធ្វើ</td>
-                                <td class="px-4 py-3 text-right text-emerald-700">៩២,០១៣ នាក់</td>
-                                <td class="px-4 py-3 text-right text-emerald-700">១០០%</td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-
-                <div class="my-6 rounded-2xl overflow-hidden shadow-md border border-slate-200">
-                    <img src="https://placehold.co/1000x400/047857/ffffff?text=Agriculture+Tourism+and+Local+Jobs+in+Koh+Kong" alt="Koh Kong Economy" class="w-full h-56 sm:h-72 object-cover hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/1000x400/1e293b/ffffff?text=Image+Unavailable'">
-                    <div class="bg-slate-50 px-4 py-2.5 text-xs text-slate-500 text-center border-t border-slate-200 font-medium">
-                        រូបភាពទី២៖ សកម្មភាពពលកម្មក្នុងវិស័យកសិកម្ម ទេសចរណ៍ និងសេវាកម្មសហគមន៍ (ប្រភព៖ Stock Image)
-                    </div>
-                </div>
-
-                <!-- Interactive Chart Container 2 with Clean-up Logic -->
-                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm mt-6">
-                    <div class="flex justify-between items-center mb-4">
-                        <h4 class="font-bold text-slate-900 text-sm sm:text-base">ក្រាហ្វិកអន្តរកម្ម៖ ការប្រៀបធៀបចំនួនអ្នកមានការងារធ្វើតាមវិស័យសេដ្ឋកិច្ច</h4>
-                        <span class="text-xs bg-emerald-100 text-emerald-800 font-semibold px-2.5 py-1 rounded-md">Sector Analysis</span>
-                    </div>
-                    <div class="relative h-72 w-full">
-                        <canvas id="sectorChart"></canvas>
-                    </div>
-                </div>
-
-                <blockquote class="my-6 p-5 bg-emerald-50 border-s-4 border-emerald-600 rounded-e-xl text-slate-800 italic text-sm sm:text-base">
-                    "ការបង្កើតតំបន់សេដ្ឋកិច្ចពិសេស និងការលើកកម្ពស់វិស័យទេសចរណ៍ធម្មជាតិនឹងជួយស្រូបទាញកម្លាំងពលកម្មមូលដ្ឋាន និងកាត់បន្ថយអត្រាចំណាកស្រុករបស់យុវជនយ៉ាងមានប្រសិទ្ធភាព។"
-                    <span class="block mt-2 font-semibold not-italic text-emerald-800 text-xs sm:text-sm">— តំណាងសហគមន៍មូលដ្ឋាន និងអង្គការដៃគូអភិវឌ្ឍន៍</span>
-                </blockquote>
-            </section>
-
-            <section class="mb-6">
-                <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
-                    <span class="flex items-center justify-center w-9 h-9 rounded-lg bg-emerald-600 text-white font-bold text-base shadow">៧</span>
-                    <h3 class="text-xl sm:text-2xl font-bold text-slate-900">សេចក្តីសន្និដ្ឋាន និងផែនការសកម្មភាពយុទ្ធសាស្រ្ត</h3>
-                </div>
-
-                <div class="space-y-4 text-slate-700 leading-relaxed text-justify text-base">
+                <div class="prose max-w-none text-slate-700 space-y-5">
                     <p>
-                        សរុបសេចក្តីមក ផែនការយុទ្ធសាស្រ្តអភិវឌ្ឍន៍ឃុំ-សង្កាត់ ខេត្តកោះកុង (២០២៦-២០៣០) បានផ្អែកលើទិន្នន័យស្ថិតិពិតប្រាកដ និងការវិភាគយ៉ាងស៊ីជម្រៅ។ រដ្ឋបាលឃុំ-សង្កាត់នឹងបន្តជំរុញការអនុវត្តគម្រោងអភិវឌ្ឍន៍ហេដ្ឋារចនាសម្ព័ន្ធបៃតង ការលើកកម្ពស់គុណភាពសេវាសាធារណៈ និងការពង្រឹងសមត្ថភាពសេដ្ឋកិច្ចមូលដ្ឋាន។
+                        ផែនការយុទ្ធសាស្ត្រអភិវឌ្ឍន៍ឃុំ-សង្កាត់ក្នុងខេត្តកោះកុង សម្រាប់ដំណាក់កាលខាងមុខ ត្រូវផ្តោតសំខាន់លើការបន្តពង្រឹងសេវាសាធារណៈ ការអភិវឌ្ឍជំនាញវិជ្ជាជីវៈដល់យុវជន ការពង្រីកវិស័យកសិ-ទេសចរណ៍ និងការការពារបរិស្ថានធម្មជាតិ។
                     </p>
-                </div>
-
-                <div class="mt-12 grid grid-cols-2 gap-8 pt-8 border-t border-slate-200 text-center text-sm">
-                    <div>
-                        <p class="font-bold text-slate-900 mb-16">បានពិនិត្យដោយ៖</p>
-                        <p class="font-semibold text-slate-800">ប្រធានគណៈកម្មាធិការសម្របសម្រួលឃុំ-សង្កាត់</p>
-                    </div>
-                    <div>
-                        <p class="font-bold text-slate-900 mb-16">រៀបចំដោយ៖</p>
-                        <p class="font-semibold text-slate-800">ក្រុមការងារបច្ចេកទេសរៀបចំផែនការខេត្តកោះកុង</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 my-4">
+                        <div class="bg-emerald-950 text-white p-6 rounded-2xl shadow-sm space-y-3">
+                            <h5 class="font-bold text-amber-300 text-base"><i class="fa-solid fa-bullseye mr-2"></i> ចក្ខុវិស័យចម្បង</h5>
+                            <p class="text-xs md:text-sm text-slate-200 leading-relaxed">អភិវឌ្ឍឃុំ-សង្កាត់ក្នុងខេត្តកោះកុងឱ្យក្លាយជាមូលដ្ឋានដែលមានសេដ្ឋកិច្ចរឹងមាំ សន្តិសុខសង្គមល្អប្រសើរ ប្រជាពលរដ្ឋមានចំណូលសមរម្យ និងមានការអភិវឌ្ឍប្រកបដោយចីរភាព。</p>
+                        </div>
+                        <div class="bg-amber-500 text-slate-950 p-6 rounded-2xl shadow-sm space-y-3">
+                            <h5 class="font-bold text-slate-950 text-base"><i class="fa-solid fa-tasks mr-2"></i> សកម្មភាពអាទិភាព</h5>
+                            <p class="text-xs md:text-sm text-slate-950 font-medium leading-relaxed">ពង្រឹងកិច្ចសហការអន្តរវិស័យ បង្កើតវេទិកាពិគ្រោះយោបល់ថ្នាក់មូលដ្ឋាន និងតាមដានការអនុវត្តគម្រោងអភិវឌ្ឍន៍ឃុំ-សង្កាត់ឱ្យមានតម្លាភាពខ្ពស់。</p>
+                        </div>
                     </div>
                 </div>
             </section>
 
         </div>
-
     </main>
 
-    <footer class="bg-slate-900 text-slate-400 py-8 text-center text-xs no-print border-t border-slate-800">
-        <div class="max-w-7xl mx-auto px-4">
-            <p class="mb-2">រក្សាសិទ្ធិ © ២០២៦ រដ្ឋបាលខេត្តកោះកុង | ផែនការយុទ្ធសាស្រ្តអភិវឌ្ឍន៍ឃុំ-សង្កាត់</p>
-            <p class="text-slate-500">បង្កើតឡើងតាមស្តង់ដាររដ្ឋបាលសាធារណៈ និងប្រព័ន្ធគ្រប់គ្រងទិន្នន័យឌីជីថល</p>
+    <footer class="bg-slate-950 text-slate-400 py-10 px-4 mt-16 border-t border-slate-800 no-print">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-sm space-y-4 md:space-y-0">
+            <div>
+                <p class="text-slate-100 font-bold text-base">រដ្ឋបាលខេត្តកោះកុង © ២០២៥-២០៣០</p>
+                <p class="text-xs text-slate-400">ប្រព័ន្ធគ្រប់គ្រង និងរៀបចំសៀវភៅផែនការយុទ្ធសាស្ត្រអភិវឌ្ឍន៍ឃុំ-សង្កាត់</p>
+            </div>
+            <div class="flex space-x-4">
+                <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="bg-slate-900 hover:bg-slate-800 text-slate-300 px-4 py-2.5 rounded-xl text-xs transition flex items-center space-x-1.5 border border-slate-800">
+                    <i class="fa-solid fa-arrow-up mr-1"></i> ឡើងលើបង្អស់
+                </button>
+            </div>
         </div>
     </footer>
 
     <script>
-        // Global chart instances to implement clean-up logic
-        let populationChartInstance = null;
-        let sectorChartInstance = null;
+        // Global variables to store chart instances for clean-up logic
+        let ageChartInstance = null;
+        let employmentChartInstance = null;
 
         function initCharts() {
-            // Clean-up logic: destroy previous chart instances if they exist to prevent canvas reuse errors
-            if (populationChartInstance) {
-                populationChartInstance.destroy();
-                populationChartInstance = null;
+            // Clean-up existing charts to prevent memory leaks and canvas reuse errors
+            if (ageChartInstance) {
+                ageChartInstance.destroy();
+                ageChartInstance = null;
             }
-            if (sectorChartInstance) {
-                sectorChartInstance.destroy();
-                sectorChartInstance = null;
+            if (employmentChartInstance) {
+                employmentChartInstance.destroy();
+                employmentChartInstance = null;
             }
 
-            // 1. Population Chart
-            const ctxPop = document.getElementById('popChart').getContext('2d');
-            populationChartInstance = new Chart(ctxPop, {
-                type: 'bar',
-                data: {
-                    labels: ['ក្រុងខេមរភូមិន្ទ', 'ស្រុកបទុមសាគរ', 'ស្រុកគីរីសាគរ', 'ស្រុកកោះកុង', 'ស្រុកមណ្ឌលសីមា', 'ស្រុកស្រែអំបិល', 'ស្រុកថ្មបាំង'],
-                    datasets: [{
-                        label: 'ចំនួនប្រជាជនសរុប (នាក់)',
-                        data: [36250, 23400, 15820, 12800, 16400, 31500, 9882],
-                        backgroundColor: '#059669',
-                        borderRadius: 8,
-                        borderSkipped: false,
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false }
-                    },
-                    scales: {
-                        y: { 
-                            beginAtZero: true,
-                            grid: { color: '#f1f5f9' }
-                        },
-                        x: {
-                            grid: { display: false }
-                        }
-                    }
-                }
-            });
-
-            // 2. Sector Employment Chart
-            const ctxSector = document.getElementById('sectorChart').getContext('2d');
-            sectorChartInstance = new Chart(ctxSector, {
+            // 1. Age Structure Doughnut Chart
+            const ctxAge = document.getElementById('ageStructureChart').getContext('2d');
+            ageChartInstance = new Chart(ctxAge, {
                 type: 'doughnut',
                 data: {
-                    labels: ['ផ្នែកកសិកម្ម ព្រៃឈើ និងនេសាទ', 'ផ្នែកឧស្សាហកម្ម និងសំណង់', 'ផ្នែកសេវាកម្ម និងពាណិជ្ជកម្ម', 'វិស័យទេសចរណ៍ និងបដិសណ្ឋារកិច្ច'],
+                    labels: ['កុមារ (ក្រោម១៥ឆ្នាំ)', 'កម្លាំងពលកម្ម (១៥-៦៤ឆ្នាំ)', 'ចាស់ជរា (៦៥ឆ្នាំឡើង)'],
                     datasets: [{
-                        data: [43.2, 22.1, 23.7, 11.0],
-                        backgroundColor: ['#059669', '#10b981', '#34d399', '#6ee7b7'],
+                        data: [45850, 101300, 11206],
+                        backgroundColor: ['#047857', '#10b981', '#fbbf24'],
                         borderWidth: 2,
                         borderColor: '#ffffff'
                     }]
@@ -664,55 +506,92 @@
                         legend: {
                             position: 'bottom',
                             labels: {
-                                font: { family: 'Kantumruy Pro', size: 12 },
-                                boxWidth: 15
+                                font: {
+                                    family: 'Kantumruy Pro',
+                                    size: 12
+                                }
                             }
+                        }
+                    }
+                }
+            });
+
+            // 2. Employment Sector Bar Chart
+            const ctxEmp = document.getElementById('employmentSectorChart').getContext('2d');
+            employmentChartInstance = new Chart(ctxEmp, {
+                type: 'bar',
+                data: {
+                    labels: ['ក្រុងខេមរភូមិន្ទ', 'ស្រុកបទុមសាគរ', 'ស្រុកកោះកុង', 'ស្រុកគីរីសាគរ', 'ស្រុកមណ្ឌលសីមា', 'ស្រុកស្រែអំបិល', 'ស្រុកថ្មស'],
+                    datasets: [
+                        {
+                            label: 'ផ្នែកកសិកម្ម',
+                            data: [1500, 3400, 4200, 2600, 3500, 8900, 4500],
+                            backgroundColor: '#047857'
+                        },
+                        {
+                            label: 'ផ្នែកឧស្សាហកម្ម',
+                            data: [4800, 2500, 1100, 3100, 1800, 3500, 1600],
+                            backgroundColor: '#34d399'
+                        },
+                        {
+                            label: 'ផ្នែកសេវាកម្ម',
+                            data: [12200, 3100, 2100, 2800, 4500, 4800, 3100],
+                            backgroundColor: '#fbbf24'
+                        },
+                        {
+                            label: 'វិស័យទេសចរណ៍',
+                            data: [6100, 2200, 1300, 1600, 2900, 1800, 1400],
+                            backgroundColor: '#f59e0b'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            stacked: false,
+                            ticks: { font: { family: 'Kantumruy Pro', size: 11 } }
+                        },
+                        y: {
+                            stacked: false,
+                            beginAtZero: true,
+                            ticks: { font: { family: 'Kantumruy Pro', size: 11 } }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { font: { family: 'Kantumruy Pro', size: 11 } }
                         }
                     }
                 }
             });
         }
 
-        // Initialize charts on page load
-        window.addEventListener('DOMContentLoaded', () => {
+        // Run on load
+        window.onload = function() {
             initCharts();
-        });
+        };
 
-        // Export function to MS Word (.doc)
+        // Export to MS-Word function with professional formatting
         function exportToWord() {
-            const htmlContent = document.getElementById('reportContent').innerHTML;
+            const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>" +
+                "<head><meta charset='utf-8'><title>សៀវភៅរបាយការណ៍ផែនការយុទ្ធសាស្ត្រខេត្តកោះកុង</title>" +
+                "<style>body{font-family:'Khmer OS Battambang', 'Kantumruy Pro', sans-serif; line-height:1.6; color:#1e293b;} h1,h2,h3{color:#065f46;}</style></head><body>";
             
-            const header = `<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
-            <head>
-                <meta charset='utf-8'>
-                <title>ផែនការយុទ្ធសាស្រ្តអភិវឌ្ឍន៍ឃុំ-សង្កាត់ ខេត្តកោះកុង</title>
-                <style>
-                    body { font-family: 'Khmer OS Siemreap', 'Kantumruy Pro', Arial, sans-serif; color: #1e293b; line-height: 1.6; padding: 20px; }
-                    h1, h2, h3, h4 { color: #065f46; font-weight: bold; }
-                    table { width: 100%; border-collapse: collapse; margin: 20px 0; }
-                    th, td { border: 1px solid #cbd5e1; padding: 10px; text-align: right; font-size: 14px; }
-                    th { background-color: #0f172a; color: #ffffff; }
-                    blockquote { border-right: 4px solid #059669; padding: 15px; background-color: #ecfdf5; margin: 20px 0; font-style: italic; }
-                    img { max-width: 100%; height: auto; border-radius: 8px; margin: 15px 0; }
-                </style>
-            </head>
-            <body>`;
-            
+            const content = document.getElementById('report-content').innerHTML;
             const footer = "</body></html>";
-            const sourceHTML = header + htmlContent + footer;
             
-            const blob = new Blob(['\ufeff' + sourceHTML], {
-                type: 'application/msword'
-            });
+            const sourceHTML = header + "<h1 style='text-align:center;'>រដ្ឋបាលខេត្តកោះកុង</h1><h2 style='text-align:center;'>សៀវភៅរបាយការណ៍ស្តីពីផែនការយុទ្ធសាស្ត្រអភិវឌ្ឍន៍ឃុំ-សង្កាត់ (២០២៥-២០៣០)</h2><br/>" + content + footer;
             
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'KohKong_Commune_Strategic_Plan_2026.doc';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
+            const source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
+            const fileDownload = document.createElement('a');
+            document.body.appendChild(fileDownload);
+            fileDownload.href = source;
+            fileDownload.download = 'Koh_Kong_Commune_Development_Strategy_Book.doc';
+            fileDownload.click();
+            document.body.removeChild(fileDownload);
         }
     </script>
 </body>
